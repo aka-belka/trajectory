@@ -3,21 +3,19 @@ import TestModal from '../components/test/TestModal';
 import Student from '../models/Student';
 import ProfessionModal from '../components/professions/ProfessionModal';
 import Profession from '../models/Profession';
-import User from '../models/User'; 
 import UserSession from '../models/UserSession'; 
+import { useAuth } from '../contexts/AuthContext'; 
 import './HomePage.css';
 
 function HomePage({ isAuthenticated }) {
+  const { user } = useAuth();
   const [isTestModalOpen, setIsTestModalOpen] = useState(false);
   const [hasUnfinishedTest, setHasUnfinishedTest] = useState(false);
   const [selectedProfession, setSelectedProfession] = useState(null);
   const [showProfessionModal, setShowProfessionModal] = useState(false);
-  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    const role = localStorage.getItem('role');
-    setUserRole(role);
-
+    const role = user?.role;
     const shouldOpenTest = localStorage.getItem('openTestAfterRedirect');
     if (shouldOpenTest === 'true') {
       localStorage.removeItem('openTestAfterRedirect');
@@ -31,19 +29,18 @@ function HomePage({ isAuthenticated }) {
     }else {
       setHasUnfinishedTest(false);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
-  const isStudent = userRole === 'student';
+  const isStudent = user?.role === 'student';
 
   const checkUnfinishedTest = async () => {
     try {
-      const userId = localStorage.getItem('userId');
-      if (!userId) {
+      if (!user?.id) {
         setHasUnfinishedTest(false);
         return;
       }
       
-      const student = await Student.findById(parseInt(userId));
+      const student = await Student.findById(parseInt(user.id));
       const hasUnfinished = await student.hasUnfinishedTest();
       setHasUnfinishedTest(hasUnfinished);
     } catch (err) {
@@ -96,7 +93,7 @@ function HomePage({ isAuthenticated }) {
     }
   };
 
-    if (userRole === 'parent') {
+    if (user?.role === 'parent') {
     return (
       <div className="homepage">
         <section className="hero-parent">
@@ -181,7 +178,7 @@ function HomePage({ isAuthenticated }) {
             profession={selectedProfession}
             onClose={() => setShowProfessionModal(false)}
             isStudent={(() => {
-              return isAuthenticated && userRole === 'student';
+              return isAuthenticated && user?.role === 'student';
             })()}
             onRecommendationClick={(prof) => {
               setSelectedProfession(prof);
@@ -289,7 +286,7 @@ function HomePage({ isAuthenticated }) {
         <TestModal
           isOpen={isTestModalOpen}
           onClose={handleCloseTestModal}
-          studentId={localStorage.getItem('userId')}
+          studentId={user?.id}
         />
       )}
 
@@ -297,8 +294,8 @@ function HomePage({ isAuthenticated }) {
         <ProfessionModal
           profession={selectedProfession}
           onClose={() => setShowProfessionModal(false)}
-          isStudent={(() => {return isAuthenticated && userRole === 'student';})()}
-          studentId={localStorage.getItem('userId')}
+          isStudent={(() => {return isAuthenticated && user?.role === 'student';})()}
+          studentId={user?.id}
           onRecommendationClick={(prof) => {
             setSelectedProfession(prof);
             setShowProfessionModal(true);

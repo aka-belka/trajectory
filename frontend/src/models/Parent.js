@@ -11,8 +11,7 @@ class Parent extends User {
   getChildren() { return this.#children; }
 
   async viewChildData(studentId) {
-    const token = localStorage.getItem('token');
-    const response = await api.get(`/users/${studentId}`, token);
+    const response = await api.get(`/users/${studentId}`);
     
     if (response && response.role === 'student') {
       const Student = await import('./Student').then(m => m.default);
@@ -28,18 +27,16 @@ class Parent extends User {
   }
 
   async leaveComment(studentId, professionId, text) {
-    const token = localStorage.getItem('token');
     await api.post('/comments', {
       studentId,
       professionId,
       text
-    }, token);
+    });
     return true;
   }
 
   async fetchChildren() {
-    const token = localStorage.getItem('token');
-    const data = await api.get('/parent/children', token);
+    const data = await api.get('/parent/children');
     
     const Student = await import('./Student').then(m => m.default);
     this.#children = data.map(child => new Student(

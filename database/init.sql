@@ -71,13 +71,12 @@ CREATE TABLE IF NOT EXISTS comments (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS user_sessions (
-  session_id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
-  session_token VARCHAR(255) UNIQUE NOT NULL,
-  redirect_intent VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  expires_at TIMESTAMP
+CREATE TABLE IF NOT EXISTS user_refresh_tokens (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  token TEXT NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT NOW(),
+  expires_at TIMESTAMP NOT NULL
 );
 
 INSERT INTO test_questions (question_text, option_a, option_b, option_a_type, option_b_type, order_number) VALUES

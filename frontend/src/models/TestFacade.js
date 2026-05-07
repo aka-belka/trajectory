@@ -76,8 +76,7 @@ class TestFacade {
   }
 
   async startTest(studentId) {
-    const token = localStorage.getItem('token');
-    const response = await api.post('/test/start',  { studentId }, token);
+    const response = await api.post('/test/start',  { studentId });
     return new TestResult(
       response.testResultId,
       studentId,
@@ -91,19 +90,17 @@ class TestFacade {
   }
 
   async answerQuestion(resultId, questionIndex, answer) {
-    const token = localStorage.getItem('token');
     await api.post('/test/answer', {
       testResultId: resultId,
       questionIndex,
       answer
-    }, token);
+    });
   }
 
   async finishTest(resultId) {
     const testResult = await this.#resultRepo.findById(resultId);
     await testResult.calculateScores();
     
-    const token = localStorage.getItem('token');
     await api.post('/test/finish', {
       testResultId: resultId,
       natureScore: testResult.getNatureScore(),
@@ -113,7 +110,7 @@ class TestFacade {
       artScore: testResult.getArtScore(),
       dominantType: testResult.getDominantType(),
       dominantTypes: testResult.getDominantTypes()
-    }, token);
+    });
     
     return testResult;
   }

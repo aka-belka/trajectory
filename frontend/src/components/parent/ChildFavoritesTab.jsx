@@ -49,32 +49,27 @@ function ChildFavoritesTab({ studentId, parentId }) {
   const handleSaveComment = async (professionId, text) => {
     setSaving(prev => ({ ...prev, [professionId]: true }));
     try {
-      const existingComment = await Comment.getByStudentAndProfession(studentId, professionId);
-      if (!text || text.trim() === '') {
-        if (existingComment) {
-          await existingComment.delete();
-          setComments(prev => {
-            const newComments = { ...prev };
-            delete newComments[professionId];
-            return newComments;
-          });
-          setEditingComment(prev => ({ ...prev, [professionId]: '' }));
-        }
-        await new Promise(resolve => setTimeout(resolve, 500));
-        return;
-      }
-      if (existingComment) {
-        await existingComment.update(text);
-        setComments(prev => ({ ...prev, [professionId]: existingComment }));
-      } else {
-        const newComment = await Comment.create(parentId, studentId, professionId, text);
-        if (newComment) {
-          setComments(prev => ({ ...prev, [professionId]: newComment }));
-        }
-      }
+      const savedComment = await Comment.saveOrUpdate(
+        parentId, 
+        studentId, 
+        professionId, 
+        text
+      );
       
-      setEditingComment(prev => ({ ...prev, [professionId]: text }));
-      await new Promise(resolve => setTimeout(resolve, 500));
+      if (savedComment) {
+        setComments(prev => ({ ...prev, [professionId]: savedComment }));
+        setEditingComment(prev => ({ ...prev, [professionId]: text }));
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } else if (!text || text.trim() === '') {
+        // Комментарий удален
+        setComments(prev => {
+          const newComments = { ...prev };
+          delete newComments[professionId];
+          return newComments;
+        });
+        setEditingComment(prev => ({ ...prev, [professionId]: '' }));
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
     } catch (err) {
       console.error('Save comment error:', err);
     } finally {

@@ -26,15 +26,13 @@ class User {
   }
 
   async updateProfile(data) {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
 
     if (data.password && data.password.length < 6) {
       throw new Error('Пароль должен содержать минимум 6 символов');
     }
     
     try {
-      const response = await api.put('/auth/me', data, token);
+      const response = await api.put('/auth/me', data);
       
       if (data.fullName) this.#fullName = data.fullName;
       
@@ -53,15 +51,8 @@ class User {
       throw new Error('Укажите класс от 5 до 11');
     }
     try{
-      const response = await api.post('/auth/register', { email, password, fullName, role, grade });
-      
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-        localStorage.setItem('userId', response.userId);
-      }
-      
-      return response;
+      const response = await api.post('/auth/register', { email, password, fullName, role, grade });    
+      return response.data || response;
     } catch (err) {
       if (err.response?.data?.error) {
         throw new Error(err.response.data.error);
@@ -75,15 +66,8 @@ class User {
 
   static async login(email, password) {
     try {
-      const response = await api.post('/auth/login', { email, password });
-      
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-        localStorage.setItem('userId', response.userId);
-      }
-      
-      return response;
+      const response = await api.post('/auth/login', { email, password });  
+      return response.data || response;
     } catch (err) {
       if (err.response?.data?.error) {
         throw new Error(err.response.data.error);
@@ -95,19 +79,9 @@ class User {
     }
   }
 
-  static logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('redirectIntent');
-  }
-
   static async getCurrentUser() {
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-    
     try {
-      const response = await api.get('/auth/me', token);
+      const response = await api.get('/auth/me' );
       if (!response) return null;
       
       const { user_id, email, full_name, role, grade, created_at } = response;
@@ -127,9 +101,7 @@ class User {
 // frontend/src/models/User.js
 
   static async findById(userId) {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
-    const response = await api.get(`/users/${userId}`, token);
+    const response = await api.get(`/users/${userId}`);
     
     if (!response) return null;
     

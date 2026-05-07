@@ -10,8 +10,9 @@ class TestQuestionRepository {
     }
 
     const data = await api.get('/questions');
+    const questionsArray = Array.isArray(data) ? data : (data.data || []);
     
-    this.#questionsCache = data.map(q => new TestQuestion(
+    this.#questionsCache = questionsArray.map(q => new TestQuestion(
       q.question_id,
       q.question_text,
       q.option_a,

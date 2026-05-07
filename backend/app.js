@@ -10,7 +10,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',  // 👈 ТВОЙ ФРОНТЕНД
+  credentials: true,                 // 👈 РАЗРЕШАЕМ КУКИ
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 app.use(express.json());
 
 const db = Database.getInstance();
@@ -93,14 +102,33 @@ app.post('/api/auth/register', async (req, res) => {
 
     const userId = result.rows[0].user_id;
 
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       { userId, email, role },
       process.env.JWT_SECRET || 'secret_key',
+      { expiresIn: '15m' }
+    );
+
+    const refreshToken = jwt.sign(
+      { userId, email, role },
+      process.env.JWT_REFRESH_SECRET || 'refresh_secret_key',
       { expiresIn: '7d' }
     );
 
+    await db.query(
+      `INSERT INTO user_refresh_tokens (user_id, token, expires_at) 
+      VALUES ($1, $2, NOW() + INTERVAL '7 days')`,
+      [userId, refreshToken]
+    );
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
     res.status(201).json({
-      token,
+      accessToken,
       userId,
       role,
       message: 'Регистрация успешна'
@@ -135,14 +163,32 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(401).json({ error: 'Неверный email или пароль' });
     }
 
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       { userId: user.user_id, email: user.email, role: user.role },
       process.env.JWT_SECRET || 'secret_key',
+      { expiresIn: '15m' }  
+    );
+
+    const refreshToken = jwt.sign(
+      { userId: user.user_id, email: user.email, role: user.role },
+      process.env.JWT_REFRESH_SECRET || 'refresh_secret_key',
       { expiresIn: '7d' }
     );
 
+    await db.query(
+      `INSERT INTO user_refresh_tokens (user_id, token, expires_at) 
+       VALUES ($1, $2, NOW() + INTERVAL '7 days')`,
+      [user.user_id, refreshToken]
+    );
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,   // JavaScript не имеет доступа
+      secure: process.env.NODE_ENV === 'production',  // только HTTPS в production
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000  // 7 дней
+    });
+
     res.json({
-      token,
+      accessToken,  // 👈 ТОЛЬКО access token!
       userId: user.user_id,
       role: user.role,
       fullName: user.full_name,
@@ -152,6 +198,52 @@ app.post('/api/auth/login', async (req, res) => {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Ошибка входа' });
   }
+});
+
+
+app.post('/api/auth/refresh', async (req, res) => {
+  const refreshToken = req.cookies?.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({ error: 'Refresh token не найден' });
+  }
+
+  try {
+    const dbResult = await db.query(
+      'SELECT user_id FROM user_refresh_tokens WHERE token = $1 AND expires_at > NOW()',
+      [refreshToken]
+    );
+
+    if (dbResult.rows.length === 0) {
+      return res.status(403).json({ error: 'Refresh token недействителен или истек' });
+    }
+
+    const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'refresh_secret_key');
+
+    const newAccessToken = jwt.sign(
+      { userId: payload.userId, email: payload.email, role: payload.role },
+      process.env.JWT_SECRET || 'secret_key',
+      { expiresIn: '15m' }
+    );
+
+    res.json({ accessToken: newAccessToken });
+  } catch (err) {
+    console.error('Refresh error:', err);
+    res.status(403).json({ error: 'Недействительный refresh token' });
+  }
+});
+
+app.post('/api/auth/logout', authenticateToken, async (req, res) => {
+  const refreshToken = req.cookies?.refreshToken;
+
+  if (refreshToken) {
+    // Удаляем refresh token из БД
+    await db.query('DELETE FROM user_refresh_tokens WHERE token = $1', [refreshToken]);
+  }
+
+  // Очищаем cookie
+  res.clearCookie('refreshToken');
+  res.json({ success: true });
 });
 
 app.get('/api/auth/me', authenticateToken, async (req, res) => {

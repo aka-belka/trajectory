@@ -267,16 +267,12 @@ class TestResult {
   }
 
   async delete() {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
-    await api.delete(`/test/result/${this.#id}`, token);
+    await api.delete(`/test/result/${this.#id}`);
     return true;
   }
     
   static async load(testResultId) {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
-    const data = await api.get(`/test/result/${testResultId}`, token);
+    const data = await api.get(`/test/result/${testResultId}`);
     
     const result = new TestResult(
       data.test_result_id,

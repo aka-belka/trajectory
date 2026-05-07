@@ -3,7 +3,6 @@ import TestResult from './TestResult';
 
 class TestResultRepository {
   async save(result) {
-    const token = localStorage.getItem('token');
     if (result.isCompleted()) {
       await api.post('/test/finish', {
         testResultId: result.getId(),
@@ -14,7 +13,7 @@ class TestResultRepository {
         artScore: result.getArtScore(),
         dominantType: result.getDominantType(),
         dominantTypes: result.getDominantTypes()
-      }, token);
+      });
     } else {
       throw new Error('Тест должен быть завершен!');
     }
@@ -23,8 +22,7 @@ class TestResultRepository {
   }
 
   async findById(id) {
-    const token = localStorage.getItem('token');
-    const data = await api.get(`/test/result/${id}`, token);
+    const data = await api.get(`/test/result/${id}`);
 
     const result = new TestResult(
       data.test_result_id,
@@ -51,8 +49,7 @@ class TestResultRepository {
   }
 
   async findByStudent(studentId) {
-    const token = localStorage.getItem('token');
-    const data = await api.get(`/test/history/${studentId}`, token);
+    const data = await api.get(`/test/history/${studentId}`);
     
     return data.map(row => {
       const result = new TestResult(
@@ -87,8 +84,7 @@ class TestResultRepository {
 
    //Создать новый результат теста
   async create(studentId) {
-    const token = localStorage.getItem('token');
-    const response = await api.post('/test/start', { studentId }, token);
+    const response = await api.post('/test/start', { studentId });
     
     return new TestResult(
       response.testResultId,

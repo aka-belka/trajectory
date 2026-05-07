@@ -30,13 +30,35 @@ class Comment {
   getCreatedAt() { return this.#createdAt; }
   getUpdatedAt() { return this.#updatedAt; }
 
+  // Comment.js - ДОБАВИТЬ:
+
+  static async saveOrUpdate(parentId, studentId, professionId, text) {
+    const existing = await Comment.getByStudentAndProfession(studentId, professionId);
+    
+    // Если текст пустой - удаляем комментарий
+    if (!text || text.trim() === '') {
+      if (existing) {
+        await existing.delete();
+      }
+      return null;
+    }
+    
+    // Если есть существующий - обновляем
+    if (existing) {
+      await existing.update(text);
+      return existing;
+    }
+    
+    // Иначе создаем новый
+    return await Comment.create(parentId, studentId, professionId, text);
+  }
+
   async update(newText) {
-    const token = localStorage.getItem('token');
     await api.post('/comments', {
       studentId: this.#studentId,
       professionId: this.#professionId,
       text: newText
-    }, token);
+    });
     
     this.#text = newText;
     this.#updatedAt = new Date().toISOString();
@@ -44,26 +66,23 @@ class Comment {
   }
 
   async delete() {
-    const token = localStorage.getItem('token');
-    await api.delete(`/comments/${this.#id}`, token);
+    await api.delete(`/comments/${this.#id}`);
     return true;
   }
 
   static async create(parentId, studentId, professionId, text) {
-    const token = localStorage.getItem('token');
     const response = await api.post('/comments', {
       studentId,
       professionId,
       text
-    }, token);
+    });
     
     const newComment = await Comment.getByStudentAndProfession(studentId, professionId);
     return newComment;
   }
 
   static async getByStudentAndProfession(studentId, professionId) {
-    const token = localStorage.getItem('token');
-    const data = await api.get(`/comments/${studentId}/${professionId}`, token);
+    const data = await api.get(`/comments/${studentId}/${professionId}`);
     if (!data) return null;
     
     return new Comment(
@@ -79,9 +98,7 @@ class Comment {
   }
 
   static async getByStudentAndProfessionForStudent(studentId, professionId) {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
-    const data = await api.get(`/comments/student/${studentId}/${professionId}`, token);
+    const data = await api.get(`/comments/student/${studentId}/${professionId}`);
     
     if (!data) return null;
     

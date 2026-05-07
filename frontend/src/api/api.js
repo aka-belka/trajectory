@@ -1,56 +1,60 @@
+// frontend/src/api/api.js - ЕДИНСТВЕННАЯ ПРАВИЛЬНАЯ ВЕРСИЯ
+
+import axios from 'axios';
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const api = {
+const axiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true
+});
 
-  async get(endpoint, token = null) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const response = await fetch(`${API_URL}${endpoint}`, { headers });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    return response.json();
-  },
-
-  async post(endpoint, data, token = null) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(data)
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    return response.json();
-  },
-
-  async put(endpoint, data, token = null) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(data)
-    });
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || `HTTP ${response.status}`);
-    }
-    return response.json();
-  },
-
-  async delete(endpoint, token = null) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      method: 'DELETE',
-      headers
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    return response.json();
+// ✅ Добавляем токен в заголовки
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('accessToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-};
+  return config;
+});
 
-export default api;
+axiosInstance.interceptors.response.use(
+  (response) => response.data,
+  async (error) => {
+    const originalRequest = error.config;
+
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      return Promise.reject(error);
+    }
+    
+    // ✅ Если 401 и это не повторный запрос
+    if ((error.response?.status === 401 || error.response?.status === 403)&& !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      try {
+        // ✅ Пытаемся обновить токен
+        const response = await axios.post(`${API_URL}/auth/refresh`, {}, {
+          withCredentials: true
+        });
+        const newToken = response.data.accessToken;
+
+        localStorage.setItem('accessToken', newToken);
+        
+        // ✅ Повторяем оригинальный запрос с новым токеном
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {;
+        // ✅ Если обновить не удалось — разлогиниваем
+        localStorage.removeItem('accessToken');
+        window.location.href = '/';
+        return Promise.reject(refreshError);
+      }
+    }
+    
+    return Promise.reject(error);
+  }
+);
+
+export default axiosInstance;

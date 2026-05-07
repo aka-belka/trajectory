@@ -28,9 +28,7 @@ class ParentChild {
   getInvitationStatus() { return this.#invitationStatus; }
 
   static async getParents(studentId) {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
-    const data = await api.get(`/student/parents/${studentId}`, token);
+    const data = await api.get(`/student/parents/${studentId}`);
 
     return data.map(item => new ParentChild(
       item.parent_child_id,
@@ -44,9 +42,8 @@ class ParentChild {
   }
 
   static async sendInvitation(parentEmail) {
-    const token = localStorage.getItem('token');
     try {
-      await api.post('/parent/invite', { parentEmail }, token);
+      await api.post('/parent/invite', { parentEmail });
       return true;
     } catch (err) {
       if (err.message === 'HTTP 404: Not Found') {
@@ -67,8 +64,7 @@ class ParentChild {
   }
 
   static async acceptInvitation(token) {
-    const authToken = localStorage.getItem('token');
-    await api.post('/parent/accept', { token }, authToken);
+    await api.post('/parent/accept', { token });
     return true;
   }
 
@@ -78,21 +74,17 @@ class ParentChild {
   }
 
   static async rejectInvitation(token) {
-    const authToken = localStorage.getItem('token');
-    await api.post('/parent/reject', { token }, authToken);
+    await api.post('/parent/reject', { token });
     return true;
   }
 
   async unlink() {
-    const token = localStorage.getItem('token');
-    const api = (await import('../api/api')).default;
-    await api.delete(`/parent/child/${this.#id}`, token);
+    await api.delete(`/parent/child/${this.#id}`);
     return true;
   }
 
   static async getChildren() {
-    const token = localStorage.getItem('token');
-    const data = await api.get('/parent/children', token);
+    const data = await api.get('/parent/children');
     
     return data.map(item => new ParentChild(
       null,
@@ -106,9 +98,7 @@ class ParentChild {
   }
 
   static async getInvitations() {
-  const token = localStorage.getItem('token');
-  const api = (await import('../api/api')).default;
-  const data = await api.get('/parent/invitations', token);
+  const data = await api.get('/parent/invitations');
   
   return data.map(item => new ParentChild(
     item.parent_child_id,

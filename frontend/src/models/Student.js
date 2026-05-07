@@ -19,8 +19,7 @@ class Student extends User {
   }
 
   async viewResults() {
-    const token = localStorage.getItem('token');
-    const data = await api.get(`/test/history/${this.getId()}`, token);
+    const data = await api.get(`/test/history/${this.getId()}`);
     
     const TestResult = await import('./TestResult').then(m => m.default);
     this.#testResults = data.map(row => {
@@ -52,20 +51,17 @@ class Student extends User {
   }
 
   async addToFavorites(professionId) {
-    const token = localStorage.getItem('token');
-    await api.post('/favorites', { studentId: this.getId(), professionId }, token);
+    await api.post('/favorites', { studentId: this.getId(), professionId });
     return true;
   }
 
   async removeFromFavorites(professionId) {
-    const token = localStorage.getItem('token');
-    await api.delete(`/favorites/${this.getId()}/${professionId}`, token);
+    await api.delete(`/favorites/${this.getId()}/${professionId}`);
     return true;
   }
 
   async getFavoriteProfessions() {
-    const token = localStorage.getItem('token');
-    const data = await api.get(`/favorites/${this.getId()}`, token);
+    const data = await api.get(`/favorites/${this.getId()}`);
     
     const Profession = await import('./Profession').then(m => m.default);
     return data.map(p => new Profession(

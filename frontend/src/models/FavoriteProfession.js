@@ -16,20 +16,17 @@ class FavoriteProfession {
   getAddedAt() { return this.#addedAt; }
 
   static async add(studentId, professionId) {
-    const token = localStorage.getItem('token');
-    await api.post('/favorites', { studentId, professionId }, token);
+    await api.post('/favorites', { studentId, professionId });
     return true;
   }
 
   static async remove(studentId, professionId) {
-    const token = localStorage.getItem('token');
-    await api.delete(`/favorites/${studentId}/${professionId}`, token);
+    await api.delete(`/favorites/${studentId}/${professionId}`);
     return true;
   }
 
   static async getByStudent(studentId) {
-    const token = localStorage.getItem('token');
-    const data = await api.get(`/favorites/${studentId}`, token);
+    const data = await api.get(`/favorites/${studentId}`);
     
     return data.map(item => new FavoriteProfession(
       studentId,

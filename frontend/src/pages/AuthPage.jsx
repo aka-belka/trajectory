@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import User from '../models/User';
 import UserSession from '../models/UserSession'; 
+import { useAuth } from '../contexts/AuthContext';
 import './AuthPage.css';
 
-function AuthPage({ onLogin, onTestRedirect }) {
+function AuthPage() {
   const navigate = useNavigate();
+  const { login, register } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [role, setRole] = useState('student');
   const [formData, setFormData] = useState({
@@ -19,10 +20,7 @@ function AuthPage({ onLogin, onTestRedirect }) {
   const [loading, setLoading] = useState(false);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth'});
   };
 
   const handleChange = (e) => {
@@ -77,41 +75,31 @@ function AuthPage({ onLogin, onTestRedirect }) {
 
     try {
       if (isLogin) {
-        const result = await User.login(formData.email, formData.password);
-        if (result && result.token) {
-          onLogin(result.token, result.role, result.userId);
-          
-          const redirectIntent = UserSession.getRedirectIntent();
-          if (redirectIntent) {
-            UserSession.clearRedirectIntent();
-            if (redirectIntent === '/test') {
-              navigate('/');
-              if (onTestRedirect) {
-                onTestRedirect();
-              }
-            } else {
-              navigate(redirectIntent);
-            }
-          } else {
+        // ✅ ТОЛЬКО ОДИН РАЗ!
+        await login(formData.email, formData.password);
+        
+        // ✅ РЕДИРЕКТ ПОСЛЕ ЛОГИНА
+        const redirectIntent = UserSession.getRedirectIntent();
+        if (redirectIntent) {
+          UserSession.clearRedirectIntent();
+          if (redirectIntent === '/test') {
             navigate('/');
+            localStorage.setItem('openTestAfterRedirect', 'true');
+          } else {
+            navigate(redirectIntent);
           }
         } else {
-          setError('Неверный email или пароль');
+          navigate('/');
         }
       } else {
-        const result = await User.register(
+        await register(
           formData.email,
           formData.password,
           formData.fullName,
           role,
           formData.grade
         );
-        if (result && result.token) {
-          onLogin(result.token, result.role, result.userId);
-          navigate('/');
-        } else {
-          setError('Ошибка регистрации. Попробуйте другой email');
-        }
+        navigate('/');
       }
     } catch (err) {
       console.error('Auth error:', err);
