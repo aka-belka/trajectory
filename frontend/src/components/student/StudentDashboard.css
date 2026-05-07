@@ -1,0 +1,98 @@
+/* frontend/src/components/student/StudentDashboard.css */
+.student-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #eef2ff;
+}
+
+.dashboard-header h1 {
+  font-size: 28px;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.student-name {
+  font-size: 16px;
+  color: #4a6cf7;
+  font-weight: 500;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 8px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.dashboard-tabs .tab-btn {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dashboard-tabs .tab-btn.active {
+  background-color: white;
+  color: #4a6cf7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-tabs .tab-btn:not(.active) {
+  color: #666;
+}
+
+.dashboard-tabs .tab-btn:not(.active):hover {
+  color: #4a6cf7;
+}
+
+.dashboard-content {
+  min-height: 400px;
+}
+
+.dashboard-loading,
+.dashboard-error {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #666;
+}
+
+.dashboard-error {
+  color: #e74c3c;
+}
+
+.test-action-btn {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background-color 0.2s;
+}
+
+.test-action-btn:hover {
+  background-color: #3a5bd5;
+}
+
+.unfinished-hint-dashboard {
+  font-size: 13px;
+  color: #f39c12;
+  margin-top: 8px;
+}

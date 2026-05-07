@@ -1,0 +1,224 @@
+/* frontend/src/components/student/FavoritesTab.css */
+.favorites-tab {
+  padding: 20px 0;
+}
+
+.favorites-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.favorites-header h2 {
+  font-size: 20px;
+  color: #1a1a2e;
+}
+
+.favorites-count {
+  color: #4a6cf7;
+  font-weight: 500;
+}
+
+.favorites-loading,
+.favorites-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-hint {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #999;
+}
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.favorite-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  flex-wrap: wrap;
+}
+
+.favorite-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.favorite-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.favorite-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.favorite-type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.type-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.favorite-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.favorite-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.details-btn {
+  background-color: #eef2ff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a6cf7;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.details-btn:hover {
+  background-color: #e0e7ff;
+}
+
+.remove-btn {
+  background-color: #fee;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: #fdd;
+}
+
+.parent-comment-icon {
+  font-size: 20px;
+  cursor: help;
+}
+
+@media (max-width: 640px) {
+  .favorite-card {
+    flex-direction: column;
+  }
+  
+  .favorite-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* Модальное окно комментария */
+.comment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.comment-modal-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.comment-modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #1a1a2e;
+}
+
+.comment-modal-content p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.comment-modal-content small {
+  display: block;
+  margin-bottom: 20px;
+  color: #999;
+  font-size: 12px;
+}
+
+.comment-modal-content button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.parent-comment-icon {
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 4px;
+}
+
+.parent-comment-icon:hover {
+  transform: scale(1.1);
+}
+
+.comment-parent-name {
+  font-weight: bold;
+  color: #4a6cf7;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-text {
+  margin: 10px 0;
+  line-height: 1.5;
+}

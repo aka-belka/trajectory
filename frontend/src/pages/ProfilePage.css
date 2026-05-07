@@ -1,0 +1,57 @@
+.profile-error {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.profile-error h2 {
+  font-size: 24px;
+  color: #e74c3c;
+  margin-bottom: 12px;
+}
+
+.profile-error p {
+  color: #666;
+}
+
+/* frontend/src/pages/HomePage.css */
+
+/* Стили для списка профессий внутри карточки типа */
+.type-professions-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.type-profession-item {
+  background-color: #f8f9fa;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.type-profession-item:hover {
+  background-color: #4a6cf7;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Стили для популярных профессий (уже есть, добавим для уверенности) */
+.popular-card {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.popular-card:hover {
+  background-color: #4a6cf7;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.popular-card:hover .popular-name {
+  color: white;
+}

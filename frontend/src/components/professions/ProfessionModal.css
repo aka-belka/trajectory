@@ -1,0 +1,344 @@
+/* frontend/src/components/professions/ProfessionModal.css */
+.profession-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.profession-modal-content {
+  background-color: white;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 750px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.profession-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+  z-index: 10;
+  line-height: 1;
+}
+
+.profession-modal-close:hover {
+  color: #e74c3c;
+}
+
+.profession-modal-header {
+  text-align: center;
+  padding: 32px 32px 24px;
+  border-bottom: 1px solid #eef2ff;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 28px 28px 0 0;
+}
+
+.profession-type-badge {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.profession-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.profession-type-name {
+  font-size: 16px;
+  color: #666;
+}
+
+.profession-modal-body {
+  padding: 24px 32px;
+}
+
+.profession-section {
+  margin-bottom: 28px;
+}
+
+.section-icon {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profession-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.exam-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.exam-tag {
+  background-color: #eef2ff;
+  color: #4a6cf7;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.salary-box {
+  background: linear-gradient(135deg, #4a6cf7 0%, #6c5ce7 100%);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.salary-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.salary-period {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-left: 8px;
+}
+
+.education-list {
+  list-style: none;
+  padding: 0;
+}
+
+.education-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef2ff;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.education-list li::before {
+  content: "🎓";
+  font-size: 16px;
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recommendation-card {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.recommendation-card:hover {
+  background-color: #eef2ff;
+  transform: translateX(4px);
+}
+
+.rec-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+
+.rec-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.profession-modal-footer {
+  padding: 20px 32px;
+  border-top: 1px solid #eef2ff;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background-color: #3a5bd5;
+}
+
+/* Стили для скроллбара */
+.profession-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profession-modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.profession-modal-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+@media (max-width: 640px) {
+  .profession-modal-content {
+    width: 95%;
+  }
+  
+  .profession-modal-header {
+    padding: 24px 20px;
+  }
+  
+  .profession-title {
+    font-size: 22px;
+  }
+  
+  .profession-modal-body {
+    padding: 20px;
+  }
+  
+  .salary-value {
+    font-size: 24px;
+  }
+}
+
+/* Добавить в конец файла */
+
+.favorite-section {
+  text-align: center;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-top: 1px solid #eef2ff;
+  border-bottom: 1px solid #eef2ff;
+}
+
+.add-favorite-btn,
+.remove-favorite-btn {
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.add-favorite-btn {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+.add-favorite-btn:hover {
+  background-color: #3a5bd5;
+  transform: translateY(-1px);
+}
+
+.remove-favorite-btn {
+  background-color: #fee;
+  color: #e74c3c;
+  border: 1px solid #fcc;
+}
+
+.remove-favorite-btn:hover {
+  background-color: #fdd;
+  transform: translateY(-1px);
+}
+
+.recommendation-card {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s;
+  border: 1px solid #e9ecef;
+}
+
+.recommendation-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.rec-title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #1a1a2e;
+}
+
+.rec-description {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.recommendation-details-btn {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.recommendation-details-btn:hover {
+  background-color: #3a5bd5;
+}

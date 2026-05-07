@@ -1,0 +1,170 @@
+/* frontend/src/components/parent/ParentDashboard.css */
+.parent-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #eef2ff;
+}
+
+.dashboard-header h1 {
+  font-size: 28px;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.parent-name {
+  font-size: 16px;
+  color: #4a6cf7;
+  font-weight: 500;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 8px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.dashboard-tabs .tab-btn {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dashboard-tabs .tab-btn.active {
+  background-color: white;
+  color: #4a6cf7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-tabs .tab-btn:not(.active) {
+  color: #666;
+}
+
+.dashboard-tabs .tab-btn:not(.active):hover {
+  color: #4a6cf7;
+}
+
+.dashboard-content {
+  min-height: 400px;
+}
+
+.parent-dashboard-loading,
+.parent-dashboard-error {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #666;
+}
+
+.parent-dashboard-error {
+  color: #e74c3c;
+}
+/* Вкладка с приглашениями */
+.invitations-tab {
+  padding: 20px 0;
+}
+
+.invitations-tab h3 {
+  font-size: 18px;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+.invitations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.invitation-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fffbf0;
+  border: 1px solid #ffe0a3;
+  border-radius: 16px;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.invitation-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.invitation-icon {
+  font-size: 32px;
+}
+
+.invitation-title {
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.invitation-subtitle {
+  font-size: 13px;
+  color: #666;
+}
+
+.invitation-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.accept-btn {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.accept-btn:hover {
+  background-color: #219a52;
+}
+
+.reject-btn {
+  background-color: #fee;
+  color: #e74c3c;
+  border: 1px solid #fcc;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reject-btn:hover {
+  background-color: #fdd;
+}
+
+.invitations-loading,
+.invitations-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: #999;
+  margin-top: 8px;
+}

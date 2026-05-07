@@ -1,0 +1,178 @@
+/* frontend/src/components/parent/ChildResultsTab.css */
+.child-results-tab {
+  width: 100%;
+}
+
+.child-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.child-results-header h3 {
+  font-size: 18px;
+  color: #1a1a2e;
+}
+
+.child-results-count {
+  font-size: 13px;
+  color: #4a6cf7;
+  background-color: #eef2ff;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.child-results-loading,
+.child-results-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.child-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.child-result-card {
+  display: flex;
+  gap: 16px;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  padding: 16px;
+  transition: transform 0.2s;
+}
+
+.child-result-card:hover {
+  transform: translateX(4px);
+  background-color: #f0f2f5;
+}
+
+.child-result-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #cbd5e1;
+  min-width: 45px;
+}
+
+.child-result-info {
+  flex: 1;
+}
+
+.child-result-date {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.child-result-type {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.result-type-badge {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 28px;
+  font-weight: 700;
+  color: white;
+  font-size: 14px;
+}
+
+.result-type-name {
+  font-weight: 500;
+  color: #1a1a2e;
+  font-size: 14px;
+}
+
+.child-result-scores {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.score-item {
+  font-size: 12px;
+  color: #666;
+  background-color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+@media (max-width: 640px) {
+  .child-result-card {
+    flex-direction: column;
+  }
+  
+  .child-result-number {
+    min-width: auto;
+  }
+  
+  .child-result-scores {
+    gap: 8px;
+  }
+}
+
+/* Для нескольких типов */
+.child-result-type-multi {
+  margin-bottom: 10px;
+}
+
+.child-type-badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.child-type-badge-small {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  color: white;
+}
+
+.child-type-name-multi {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  display: block;
+}
+
+/* Для одного типа */
+.child-result-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.child-type-badge {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  color: white;
+}
+
+.child-type-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}

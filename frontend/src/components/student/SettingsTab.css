@@ -1,0 +1,202 @@
+/* frontend/src/components/student/SettingsTab.css */
+.settings-tab {
+  padding: 20px 0;
+  max-width: 600px;
+}
+
+.settings-nav {
+  display: flex;
+  gap: 8px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.settings-nav-btn {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.settings-nav-btn.active {
+  background-color: white;
+  color: #4a6cf7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.settings-nav-btn:not(.active) {
+  color: #666;
+}
+
+.settings-nav-btn:not(.active):hover {
+  color: #4a6cf7;
+}
+
+.settings-form {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #4a6cf7;
+}
+
+.form-input.disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: #999;
+  margin-top: 6px;
+}
+
+.form-actions {
+  margin-top: 24px;
+}
+
+.save-btn {
+  width: 100%;
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #3a5bd5;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.danger-zone {
+  background-color: #fff5f5;
+  border: 1px solid #fee;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.danger-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e74c3c;
+  margin-bottom: 8px;
+}
+
+.danger-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.delete-btn {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background-color: #fdd;
+  border-color: #fbb;
+}
+
+.delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background-color: #d5f5e3;
+  color: #27ae60;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.error-message {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background-color: #fee;
+  color: #e74c3c;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.logout-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.logout-btn {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.logout-btn:hover {
+  background-color: #fdd;
+  border-color: #fbb;
+}
