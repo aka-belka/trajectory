@@ -1,4 +1,6 @@
 import api from '../api/api';
+import Student from './Student'
+import Parent from './Parent';
 
 class User {
   #id = null;
@@ -87,7 +89,6 @@ class User {
       const { user_id, email, full_name, role, grade, created_at } = response;
       
       if (role === 'student') {
-        const Student = await import('./Student').then(m => m.default);
         return new Student(user_id, email, full_name, grade, created_at);
       }
       
@@ -98,8 +99,6 @@ class User {
     }
   }
 
-// frontend/src/models/User.js
-
   static async findById(userId) {
     const response = await api.get(`/users/${userId}`);
     
@@ -108,12 +107,10 @@ class User {
     const { user_id, email, full_name, role, grade, created_at } = response;
     
     if (role === 'student') {
-      const Student = await import('./Student').then(m => m.default);
       return new Student(user_id, email, full_name, grade, created_at);
     }
     
     if (role === 'parent') {
-      const Parent = await import('./Parent').then(m => m.default);
       return new Parent(user_id, email, full_name, created_at);
     }
     

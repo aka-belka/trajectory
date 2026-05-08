@@ -20,12 +20,10 @@ function ChildFavoritesTab({ studentId, parentId }) {
   const loadData = async () => {
     setLoading(true);
     try {
-      // Загружаем избранное ребёнка
       const student = await Student.findById(studentId);
       const favoritesList = await student.getFavoriteProfessions();
       setFavorites(favoritesList);
 
-      // Загружаем комментарии родителя
       const commentsMap = {};
       const editingMap = {};
       for (const prof of favoritesList) {
@@ -61,7 +59,6 @@ function ChildFavoritesTab({ studentId, parentId }) {
         setEditingComment(prev => ({ ...prev, [professionId]: text }));
         await new Promise(resolve => setTimeout(resolve, 500));
       } else if (!text || text.trim() === '') {
-        // Комментарий удален
         setComments(prev => {
           const newComments = { ...prev };
           delete newComments[professionId];

@@ -1,5 +1,3 @@
-// frontend/src/contexts/AuthContext.jsx
-
 import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../api/api';
 import User from '../models/User';
@@ -10,7 +8,6 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ ПРОСТАЯ ИНИЦИАЛИЗАЦИЯ
   useEffect(() => {
     const initAuth = async () => {
       setLoading(true);
@@ -47,8 +44,6 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const response = await User.login(email, password);
-    
-    // ✅ БЭКЕНД ВОЗВРАЩАЕТ accessToken, userId, role, fullName, grade
     const token = response.accessToken;
     
     if (token) {

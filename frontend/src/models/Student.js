@@ -1,5 +1,7 @@
 import User from './User';
 import api from '../api/api';
+import TestResult from './TestResult';
+import Profession from './Profession';
 
 
 class Student extends User {
@@ -21,7 +23,6 @@ class Student extends User {
   async viewResults() {
     const data = await api.get(`/test/history/${this.getId()}`);
     
-    const TestResult = await import('./TestResult').then(m => m.default);
     this.#testResults = data.map(row => {
       const result = new TestResult(
         row.test_result_id,
@@ -63,7 +64,6 @@ class Student extends User {
   async getFavoriteProfessions() {
     const data = await api.get(`/favorites/${this.getId()}`);
     
-    const Profession = await import('./Profession').then(m => m.default);
     return data.map(p => new Profession(
       p.profession_id,
       p.title,

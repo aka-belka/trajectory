@@ -75,10 +75,8 @@ function AuthPage() {
 
     try {
       if (isLogin) {
-        // ✅ ТОЛЬКО ОДИН РАЗ!
         await login(formData.email, formData.password);
-        
-        // ✅ РЕДИРЕКТ ПОСЛЕ ЛОГИНА
+
         const redirectIntent = UserSession.getRedirectIntent();
         if (redirectIntent) {
           UserSession.clearRedirectIntent();

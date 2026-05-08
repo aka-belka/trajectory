@@ -1,5 +1,6 @@
 import User from './User';
 import api from '../api/api';
+import Student from'./Student';
 
 class Parent extends User {
   #children = [];
@@ -14,7 +15,6 @@ class Parent extends User {
     const response = await api.get(`/users/${studentId}`);
     
     if (response && response.role === 'student') {
-      const Student = await import('./Student').then(m => m.default);
       return new Student(
         response.user_id,
         response.email,
@@ -38,7 +38,6 @@ class Parent extends User {
   async fetchChildren() {
     const data = await api.get('/parent/children');
     
-    const Student = await import('./Student').then(m => m.default);
     this.#children = data.map(child => new Student(
       child.user_id,
       child.email,

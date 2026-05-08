@@ -1,4 +1,3 @@
-/* frontend/src/components/parent/ParentDashboard.css */
 .parent-dashboard {
   max-width: 1200px;
   margin: 0 auto;
@@ -73,7 +72,6 @@
 .parent-dashboard-error {
   color: #e74c3c;
 }
-/* Вкладка с приглашениями */
 .invitations-tab {
   padding: 20px 0;
 }

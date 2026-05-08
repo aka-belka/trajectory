@@ -36,13 +36,11 @@ class TestQuestionRepository {
     return question;
   }
 
-   //Получить количество вопросов
   async getCount() {
     const allQuestions = await this.getAll();
     return allQuestions.length;
   }
 
-  //Очистить кэш (при необходимости обновить вопросы)
   clearCache() {
     this.#questionsCache = null;
   }

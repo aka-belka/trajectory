@@ -2,7 +2,6 @@ import api from '../api/api';
 
 class Comment {
   #id = null;
-  #parentId = null;
   #studentId = null;
   #professionId = null;
   #name = null;
@@ -10,9 +9,8 @@ class Comment {
   #createdAt = null;
   #updatedAt = null;
 
-  constructor(id, parentId, studentId, professionId, name, text, createdAt, updatedAt) {
+  constructor(id, studentId, professionId, name, text, createdAt, updatedAt) {
     this.#id = id;
-    this.#parentId = parentId;
     this.#studentId = studentId;
     this.#professionId = professionId;
     this.#name = name;
@@ -22,7 +20,6 @@ class Comment {
   }
 
   getId() { return this.#id; }
-  getParentId() { return this.#parentId; }
   getStudentId() { return this.#studentId; }
   getProfessionId() { return this.#professionId; }
   getName() { return this.#name; }
@@ -30,12 +27,9 @@ class Comment {
   getCreatedAt() { return this.#createdAt; }
   getUpdatedAt() { return this.#updatedAt; }
 
-  // Comment.js - ДОБАВИТЬ:
-
   static async saveOrUpdate(parentId, studentId, professionId, text) {
     const existing = await Comment.getByStudentAndProfession(studentId, professionId);
     
-    // Если текст пустой - удаляем комментарий
     if (!text || text.trim() === '') {
       if (existing) {
         await existing.delete();
@@ -43,13 +37,11 @@ class Comment {
       return null;
     }
     
-    // Если есть существующий - обновляем
     if (existing) {
       await existing.update(text);
       return existing;
     }
-    
-    // Иначе создаем новый
+ 
     return await Comment.create(parentId, studentId, professionId, text);
   }
 
@@ -87,7 +79,6 @@ class Comment {
     
     return new Comment(
       data.comment_id,
-      data.parent_id,
       data.student_id,
       data.profession_id,
       data.parent_name || 'Родитель',
@@ -104,7 +95,6 @@ class Comment {
     
     return new Comment(
       data.comment_id,
-      data.parent_id,
       data.student_id,
       data.profession_id,
       data.parent_name || 'Родитель',

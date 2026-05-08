@@ -9,7 +9,6 @@ function ChildrenTab({ parent }) {
   const [loading, setLoading] = useState(true);
   const [selectedChild, setSelectedChild] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
   const [confirmModal, setConfirmModal] = useState({
     isOpen: false,
     childToUnlinkId: null,

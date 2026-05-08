@@ -13,7 +13,7 @@ class TestResult {
   #signScore = 0;
   #artScore = 0;
   #dominantType = null;
-  #dominantTypes = [];  // 🔥 НОВОЕ ПОЛЕ ДЛЯ НЕСКОЛЬКИХ ТИПОВ
+  #dominantTypes = [];  
 
   constructor(id, studentId, answersJson, currentQuestionIndex, isCompleted, completedAt = null,
               natureScore = 0, techniqueScore = 0, humanScore = 0, signScore = 0, artScore = 0, dominantType = null) {
@@ -29,7 +29,7 @@ class TestResult {
     this.#signScore = signScore || 0;
     this.#artScore = artScore || 0;
     this.#dominantType = dominantType;
-    this.#dominantTypes = dominantType ? [dominantType] : [];  // 🔥 ИНИЦИАЛИЗАЦИЯ
+    this.#dominantTypes = dominantType ? [dominantType] : [];  
   }
 
   getId() { return this.#id; }
@@ -38,7 +38,7 @@ class TestResult {
   getCurrentQuestionIndex() { return this.#currentQuestionIndex; }
   isCompleted() { return this.#isCompleted; }
   getDominantType() { return this.#dominantType; }
-  getDominantTypes() { return this.#dominantTypes; }  // 🔥 НОВЫЙ ГЕТТЕР
+  getDominantTypes() { return this.#dominantTypes; } 
   getNatureScore() { return this.#natureScore; }
   getTechniqueScore() { return this.#techniqueScore; }
   getHumanScore() { return this.#humanScore; }
@@ -87,10 +87,8 @@ class TestResult {
     this.#signScore = scores['З'];
     this.#artScore = scores['Х'];
     
-    // 🔥 НАХОДИМ МАКСИМАЛЬНЫЙ БАЛЛ
     const maxScore = Math.max(this.#natureScore, this.#techniqueScore, this.#humanScore, this.#signScore, this.#artScore);
     
-    // 🔥 НАХОДИМ ВСЕ ТИПЫ С МАКСИМАЛЬНЫМ БАЛЛОМ
     this.#dominantTypes = [];
     if (this.#natureScore === maxScore) this.#dominantTypes.push('П');
     if (this.#techniqueScore === maxScore) this.#dominantTypes.push('Т');
@@ -98,7 +96,6 @@ class TestResult {
     if (this.#signScore === maxScore) this.#dominantTypes.push('З');
     if (this.#artScore === maxScore) this.#dominantTypes.push('Х');
     
-    // Для обратной совместимости сохраняем первый тип как основной
     this.#dominantType = this.#dominantTypes[0] || null;
     
     this.#isCompleted = true;
@@ -106,12 +103,10 @@ class TestResult {
   }
 
   async getProfessionRecommendations(maxProfessions = 6) {
-    // 🔥 ЕСЛИ НЕСКОЛЬКО ТИПОВ — БЕРЁМ ПОРОВНУ ИЗ КАЖДОГО
     if (this.#dominantTypes.length > 1) {
       const allProfessionsByType = {};
       const Profession = await import('./Profession').then(m => m.default);
       
-      // 1. Загружаем профессии для каждого типа
       for (const type of this.#dominantTypes) {
         const data = await api.get(`/professions/type/${type}`);
         const professions = data.map(p => new Profession(
@@ -126,16 +121,14 @@ class TestResult {
         allProfessionsByType[type] = professions;
       }
       
-      // 2. Равномерно распределяем профессии между типами
       const result = [];
       const typeCount = this.#dominantTypes.length;
-      const perType = Math.floor(maxProfessions / typeCount); // сколько на тип
-      const remainder = maxProfessions % typeCount; // остаток (добавим первым типам)
+      const perType = Math.floor(maxProfessions / typeCount); 
+      const remainder = maxProfessions % typeCount; 
       
       let remainderCounter = 0;
       for (const type of this.#dominantTypes) {
         const professions = allProfessionsByType[type];
-        // Берём perType профессий из этого типа, плюс одну если есть остаток
         let take = perType;
         if (remainderCounter < remainder) {
           take++;
@@ -146,7 +139,6 @@ class TestResult {
         result.push(...taken);
       }
       
-      // 3. Убираем дубликаты (если профессия попала в несколько типов)
       const uniqueProfessions = [];
       const ids = new Set();
       for (const prof of result) {
@@ -159,7 +151,6 @@ class TestResult {
       return uniqueProfessions;
     }
     
-    // ОДИН ТИП
     if (!this.#dominantType) return [];
     
     const data = await api.get(`/professions/type/${this.#dominantType}`);
@@ -188,7 +179,6 @@ class TestResult {
     return typeMap[this.#dominantType] || this.#dominantType;
   }
 
-  // 🔥 НОВЫЙ МЕТОД ДЛЯ ПОЛУЧЕНИЯ НАЗВАНИЙ НЕСКОЛЬКИХ ТИПОВ
   getDominantTypesFullNames() {
     const typeMap = {
       'П': 'Человек — Природа',

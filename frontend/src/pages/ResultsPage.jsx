@@ -49,7 +49,7 @@ function ResultsPage({ userId }) {
   };
 
   const handleGoBack = () => {
-    navigate(-1); // Возврат на предыдущую страницу
+    navigate(-1);
   };
 
   const handleTestAgain = () => {
@@ -89,7 +89,6 @@ function ResultsPage({ userId }) {
   return (
     <div className="results-page">
       <div className="results-container">
-        {/* Кнопка назад */}
         <div className="results-nav">
           <button onClick={handleGoBack} className="back-btn">
             ← Назад

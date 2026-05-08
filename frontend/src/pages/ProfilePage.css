@@ -13,9 +13,6 @@
   color: #666;
 }
 
-/* frontend/src/pages/HomePage.css */
-
-/* Стили для списка профессий внутри карточки типа */
 .type-professions-list {
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +37,6 @@
   transform: translateY(-1px);
 }
 
-/* Стили для популярных профессий (уже есть, добавим для уверенности) */
 .popular-card {
   cursor: pointer;
   transition: all 0.2s;

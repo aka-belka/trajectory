@@ -9,7 +9,6 @@ function ParentTab({ student, onRefresh }) {
   const [parents, setParents] = useState([]);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-
   const [confirmModal, setConfirmModal] = useState({
     isOpen: false,
     parentToUnlink: null

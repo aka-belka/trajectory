@@ -10,7 +10,7 @@ import ScrollToTop from './components/common/ScrollToTop';
 import './App.css';
 
 function App() {
-  const { isAuthenticated, user, loading, logout } = useAuth();  // 👈 БЕРЁМ ИЗ КОНТЕКСТА
+  const { isAuthenticated, user, loading, logout } = useAuth(); 
 
   if (loading) {
     return <div className="loading-screen">Загрузка...</div>;

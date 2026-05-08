@@ -16,12 +16,6 @@ function ChildResultsTab({ studentId }) {
     try {
       const student = await Student.findById(studentId);
       const history = await student.getTestHistory();
-      console.log('🔍 ChildResultsTab - загруженная история:', history);
-      
-      // 🔥 ЛОГ ДЛЯ ПРОВЕРКИ dominantTypes
-      history.forEach(result => {
-        console.log('  - dominantTypes:', result.getDominantTypes());
-      });
       
       setTestHistory(history);
     } catch (err) {
@@ -42,11 +36,9 @@ function ChildResultsTab({ studentId }) {
       minute: '2-digit'
     });
   };
-
-  // 🔥 ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТИПОВ (ОДИН ИЛИ НЕСКОЛЬКО)
   const renderTypeInfo = (result) => {
-    const dominantTypes = result.getDominantTypes();
-    const isMultiType = dominantTypes.length > 1;
+  const dominantTypes = result.getDominantTypes();
+      const isMultiType = dominantTypes.length > 1;
 
     if (isMultiType) {
       return (
@@ -107,8 +99,7 @@ function ChildResultsTab({ studentId }) {
             <div className="child-result-number">#{testHistory.length - index}</div>
             <div className="child-result-info">
               <div className="child-result-date">{formatDate(result.getCompletedAt())}</div>
-              
-              {/* 🔥 НОВАЯ СЕКЦИЯ ДЛЯ ТИПОВ */}
+
               {renderTypeInfo(result)}
               
               <div className="child-result-scores">

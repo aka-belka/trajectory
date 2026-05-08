@@ -50,7 +50,6 @@ class ParentChild {
         throw new Error('Родитель с таким email не найден');
       }
       if (err.message === 'HTTP 409: Conflict') {
-        // Пытаемся извлечь сообщение из ошибки
         if (err.message.includes('уже привязан')) {
           throw new Error('Этот родитель уже привязан к вашему аккаунту');
         }

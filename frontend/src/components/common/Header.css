@@ -107,32 +107,3 @@
   background-color: #3a5bd5;
   text-decoration: none;
 }
-
-/* Мобильная версия */
-@media (max-width: 768px) {
-  .header-container {
-    height: 60px;
-  }
-  
-  .logo-text {
-    display: none;
-  }
-  
-  .nav {
-    gap: 20px;
-  }
-  
-  .user-role {
-    display: none;
-  }
-  
-  .logout-btn {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-  
-  .login-btn {
-    padding: 6px 16px;
-    font-size: 14px;
-  }
-}

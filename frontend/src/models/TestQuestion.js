@@ -35,12 +35,10 @@ class TestQuestion {
     return [this.#optionA, this.#optionB];
   }
 
-   //Получить тип профессии для варианта A
   getOptionATypeLetter() {
     return this.#optionAType;
   }
 
-  //Получить тип профессии для варианта B
   getOptionBTypeLetter() {
     return this.#optionBType;
   }

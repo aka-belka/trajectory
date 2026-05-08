@@ -1,4 +1,3 @@
-/* frontend/src/pages/ResultsPage.css */
 .results-page {
   min-height: calc(100vh - 70px - 100px);
   background-color: #f5f7fa;
@@ -257,8 +256,6 @@
     grid-template-columns: 1fr;
   }
 }
-
-/* Навигационная панель с кнопкой назад */
 .results-nav {
   margin-bottom: 20px;
 }

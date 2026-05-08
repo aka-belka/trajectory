@@ -82,7 +82,6 @@ function ResultsTab({ student, refreshTrigger, onContinueTest }) {
     }
   };
 
-  // 🔥 ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТИПОВ (ОДИН ИЛИ НЕСКОЛЬКО)
   const renderTypeInfo = (result) => {
     const dominantTypes = result.getDominantTypes();
     const isMultiType = dominantTypes.length > 1;
@@ -150,8 +149,7 @@ function ResultsTab({ student, refreshTrigger, onContinueTest }) {
             <div className="result-number">#{testHistory.length - index}</div>
             <div className="result-info">
               <div className="result-date">{formatDate(result.getCompletedAt())}</div>
-              
-              {/* 🔥 НОВАЯ СЕКЦИЯ ДЛЯ ТИПОВ */}
+            
               {renderTypeInfo(result)}
               
               <div className="result-scores">

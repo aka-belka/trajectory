@@ -1,4 +1,3 @@
-/* frontend/src/components/student/FavoritesTab.css */
 .favorites-tab {
   padding: 20px 0;
 }
@@ -148,7 +147,6 @@
   }
 }
 
-/* Модальное окно комментария */
 .comment-modal-overlay {
   position: fixed;
   top: 0;

@@ -1,19 +1,13 @@
 import api from '../api/api';
 
 class FavoriteProfession {
-  #studentId = null;
   #professionId = null;
-  #addedAt = null;
 
-  constructor(studentId, professionId, addedAt) {
-    this.#studentId = studentId;
+  constructor(professionId) {
     this.#professionId = professionId;
-    this.#addedAt = addedAt;
   }
 
-  getStudentId() { return this.#studentId; }
   getProfessionId() { return this.#professionId; }
-  getAddedAt() { return this.#addedAt; }
 
   static async add(studentId, professionId) {
     await api.post('/favorites', { studentId, professionId });

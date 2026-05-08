@@ -11,7 +11,7 @@ function SettingsTab({ student, onRefresh }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  const [activeSection, setActiveSection] = useState('profile'); // 'profile', 'password'
+  const [activeSection, setActiveSection] = useState('profile');
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();

@@ -82,7 +82,6 @@ class TestResultRepository {
     return allResults.find(r => !r.isCompleted()) || null;
   }
 
-   //Создать новый результат теста
   async create(studentId) {
     const response = await api.post('/test/start', { studentId });
     

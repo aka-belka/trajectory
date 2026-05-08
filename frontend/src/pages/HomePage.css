@@ -1,9 +1,7 @@
-/* frontend/src/pages/HomePage.css */
 .homepage {
   width: 100%;
 }
 
-/* Hero секция */
 .hero {
   display: flex;
   justify-content: space-between;
@@ -82,8 +80,6 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
 }
-
-/* Как это работает */
 .how-it-works {
   margin-bottom: 60px;
 }
@@ -151,7 +147,6 @@
   line-height: 1.5;
 }
 
-/* 5 типов профессий */
 .profession-types {
   margin-bottom: 60px;
   background-color: #f8f9fa;
@@ -221,7 +216,6 @@
   font-size: 18px;
 }
 
-/* Популярные профессии */
 .popular-professions {
   margin-bottom: 60px;
 }
@@ -258,7 +252,6 @@
   color: #1a1a2e;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
@@ -306,7 +299,6 @@
   border-radius: 30px;
 }
 
-/* Стили для родительской версии */
 .hero-parent {
   background: linear-gradient(135deg, #4a6cf7 0%, #6c5ce7 100%);
   border-radius: 24px;

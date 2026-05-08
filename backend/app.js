@@ -11,8 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'http://localhost:5173',  // 👈 ТВОЙ ФРОНТЕНД
-  credentials: true,                 // 👈 РАЗРЕШАЕМ КУКИ
+  origin: 'http://localhost:5173', 
+  credentials: true,             
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -181,14 +181,14 @@ app.post('/api/auth/login', async (req, res) => {
       [user.user_id, refreshToken]
     );
     res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,   // JavaScript не имеет доступа
-      secure: process.env.NODE_ENV === 'production',  // только HTTPS в production
+      httpOnly: true,  
+      secure: process.env.NODE_ENV === 'production', 
       sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000  // 7 дней
+      maxAge: 7 * 24 * 60 * 60 * 1000 
     });
 
     res.json({
-      accessToken,  // 👈 ТОЛЬКО access token!
+      accessToken, 
       userId: user.user_id,
       role: user.role,
       fullName: user.full_name,
@@ -237,11 +237,9 @@ app.post('/api/auth/logout', authenticateToken, async (req, res) => {
   const refreshToken = req.cookies?.refreshToken;
 
   if (refreshToken) {
-    // Удаляем refresh token из БД
     await db.query('DELETE FROM user_refresh_tokens WHERE token = $1', [refreshToken]);
   }
 
-  // Очищаем cookie
   res.clearCookie('refreshToken');
   res.json({ success: true });
 });
@@ -854,7 +852,6 @@ app.get('/api/users/:userId', authenticateToken, async (req, res) => {
   }
 });
 
-// Удалить результат теста
 app.delete('/api/test/result/:testResultId', authenticateToken, async (req, res) => {
   const { testResultId } = req.params;
   try {

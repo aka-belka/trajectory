@@ -148,7 +148,6 @@ function FavoritesTab({ student, refreshTrigger, onRefresh, userId }) {
                 ✖ Удалить
               </button>
               
-              {/* Иконка комментария */}
               {comments[profession.getId()] && (
                 <div 
                   className="parent-comment-icon" 
