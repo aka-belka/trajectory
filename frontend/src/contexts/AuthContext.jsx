@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
       });
       return response;
     }
-    throw new Error('Ошибка входа');
+    throw new Error(response.message || 'Ошибка входа');
   };
 
   const register = async (email, password, fullName, role, grade) => {

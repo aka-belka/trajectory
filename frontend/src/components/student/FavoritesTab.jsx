@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ProfessionModal from '../professions/ProfessionModal';
+import FavoriteProfession from '../../models/FavoriteProfession';
 import Comment from '../../models/Comment';
 import ConfirmModal from '../common/ConfirmModal';
 import './FavoritesTab.css';
@@ -26,7 +27,7 @@ function FavoritesTab({ student, refreshTrigger, onRefresh, userId }) {
   const loadFavorites = async () => {
     setLoading(true);
     try {
-      const favoritesList = await student.getFavoriteProfessions();
+      const favoritesList = await FavoriteProfession.getFavoriteProfessions(student.getId());
       setFavorites(favoritesList);
       
       const commentsMap = {};

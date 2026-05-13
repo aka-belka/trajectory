@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Student from '../../models/Student';
-import TestResult from '../../models/TestResult';
+import {getTypeColor, getTypeFullName} from '../../constants/professionTypes';
 import './ChildResultsTab.css';
 
 function ChildResultsTab({ studentId }) {
@@ -48,14 +48,14 @@ function ChildResultsTab({ studentId }) {
               <span 
                 key={typeCode} 
                 className="child-type-badge-small" 
-                style={{ backgroundColor: TestResult.getTypeColor(typeCode) }}
+                style={{ backgroundColor: getTypeColor(typeCode) }}
               >
                 {typeCode}
               </span>
             ))}
           </div>
           <span className="child-type-name-multi">
-            {dominantTypes.map(typeCode => TestResult.getTypeFullName(typeCode)).join(', ')}
+            {dominantTypes.map(typeCode => getTypeFullName(typeCode)).join(', ')}
           </span>
         </div>
       );
@@ -65,11 +65,11 @@ function ChildResultsTab({ studentId }) {
       <div className="child-result-type">
         <span 
           className="child-type-badge" 
-          style={{ backgroundColor: result.getDominantTypeColor() }}
+          style={{ backgroundColor: getTypeColor(result.getDominantType()) }}
         >
           {result.getDominantType()}
         </span>
-        <span className="child-type-name">{result.getDominantTypeFullName()}</span>
+        <span className="child-type-name">{getTypeFullName(result.getDominantType())}</span>
       </div>
     );
   };

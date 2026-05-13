@@ -1,7 +1,6 @@
 import User from './User';
 import api from '../api/api';
 import TestResult from './TestResult';
-import Profession from './Profession';
 
 
 class Student extends User {
@@ -51,28 +50,9 @@ class Student extends User {
     return this.#testResults;
   }
 
-  async addToFavorites(professionId) {
-    await api.post('/favorites', { studentId: this.getId(), professionId });
-    return true;
-  }
-
   async removeFromFavorites(professionId) {
     await api.delete(`/favorites/${this.getId()}/${professionId}`);
     return true;
-  }
-
-  async getFavoriteProfessions() {
-    const data = await api.get(`/favorites/${this.getId()}`);
-    
-    return data.map(p => new Profession(
-      p.profession_id,
-      p.title,
-      p.description,
-      p.profession_type,
-      p.exam_subjects,
-      p.salary,
-      p.education_places
-    ));
   }
 
   async getTestHistory() {

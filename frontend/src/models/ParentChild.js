@@ -46,14 +46,15 @@ class ParentChild {
       await api.post('/parent/invite', { parentEmail });
       return true;
     } catch (err) {
-      if (err.message === 'HTTP 404: Not Found') {
+      if (err.response?.status === 404) {
         throw new Error('Родитель с таким email не найден');
       }
-      if (err.message === 'HTTP 409: Conflict') {
-        if (err.message.includes('уже привязан')) {
+      if (err.response?.status === 409) {
+        const serverMessage = err.response?.data?.error || '';
+        if (serverMessage.includes('уже привязан')) {
           throw new Error('Этот родитель уже привязан к вашему аккаунту');
         }
-        if (err.message.includes('уже было отправлено')) {
+        if (serverMessage.includes('уже было отправлено')) {
           throw new Error('Приглашение уже было отправлено. Дождитесь ответа.');
         }
         throw new Error('Приглашение уже существует');
@@ -80,20 +81,6 @@ class ParentChild {
   async unlink() {
     await api.delete(`/parent/child/${this.#id}`);
     return true;
-  }
-
-  static async getChildren() {
-    const data = await api.get('/parent/children');
-    
-    return data.map(item => new ParentChild(
-      null,
-      null,
-      item.user_id,
-      item.full_name || `Ученик #${item.user_id}`, 
-      item.linked_at,
-      null,
-      'accepted'
-    ));
   }
 
   static async getInvitations() {

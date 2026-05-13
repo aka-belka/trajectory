@@ -1,6 +1,4 @@
 import api from '../api/api';
-import Student from './Student'
-import Parent from './Parent';
 
 class User {
   #id = null;
@@ -28,7 +26,6 @@ class User {
   }
 
   async updateProfile(data) {
-
     if (data.password && data.password.length < 6) {
       throw new Error('Пароль должен содержать минимум 6 символов');
     }
@@ -40,7 +37,10 @@ class User {
       
       return response;
     } catch (err) {
-      throw new Error(err.message);
+      if (err.response?.data?.error) {
+        throw new Error(err.response.data.error);
+      }
+      throw new Error(err.message || 'Ошибка обновления профиля');
     }
   }
 
@@ -59,7 +59,7 @@ class User {
       if (err.response?.data?.error) {
         throw new Error(err.response.data.error);
       }
-      if (err.message.includes('409')) {
+      if (err.response?.status === 409) {
         throw new Error('Пользователь с таким email уже существует');
       }
       throw new Error(err.message || 'Ошибка регистрации');
@@ -74,7 +74,7 @@ class User {
       if (err.response?.data?.error) {
         throw new Error(err.response.data.error);
       }
-      if (err.message.includes('401')) {
+      if (err.response?.status === 401) {
         throw new Error('Неверный email или пароль');
       }
       throw new Error(err.message || 'Ошибка входа');
@@ -89,6 +89,7 @@ class User {
       const { user_id, email, full_name, role, grade, created_at } = response;
       
       if (role === 'student') {
+        const { default: Student } = await import('./Student');
         return new Student(user_id, email, full_name, grade, created_at);
       }
       
@@ -107,10 +108,12 @@ class User {
     const { user_id, email, full_name, role, grade, created_at } = response;
     
     if (role === 'student') {
+      const { default: Student } = await import('./Student');
       return new Student(user_id, email, full_name, grade, created_at);
     }
     
     if (role === 'parent') {
+      const { default: Parent } = await import('./Parent');
       return new Parent(user_id, email, full_name, created_at);
     }
     

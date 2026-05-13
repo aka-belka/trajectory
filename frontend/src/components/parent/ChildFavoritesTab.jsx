@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Student from '../../models/Student';
 import Comment from '../../models/Comment';
 import ProfessionModal from '../professions/ProfessionModal';
+import FavoriteProfession from '../../models/FavoriteProfession';
 import './ChildFavoritesTab.css';
 
 function ChildFavoritesTab({ studentId, parentId }) {
@@ -21,7 +22,7 @@ function ChildFavoritesTab({ studentId, parentId }) {
     setLoading(true);
     try {
       const student = await Student.findById(studentId);
-      const favoritesList = await student.getFavoriteProfessions();
+      const favoritesList = await FavoriteProfession.getFavoriteProfessions(student.getId());
       setFavorites(favoritesList);
 
       const commentsMap = {};

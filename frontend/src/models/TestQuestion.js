@@ -20,49 +20,12 @@ class TestQuestion {
   }
 
   getId() { return this.#id; }
-  getQuestionText() { return this.#questionText; }
   getOptionA() { return this.#optionA; }
   getOptionB() { return this.#optionB; }
   getOptionAType() { return this.#optionAType; }
   getOptionBType() { return this.#optionBType; }
   getOrderNumber() { return this.#orderNumber; }
-
-  getQuestion() {
-    return this.#questionText;
-  }
-
-  getOptions() {
-    return [this.#optionA, this.#optionB];
-  }
-
-  getOptionATypeLetter() {
-    return this.#optionAType;
-  }
-
-  getOptionBTypeLetter() {
-    return this.#optionBType;
-  }
-
-  getTypeName(letter) {
-    const typeMap = {
-      'П': 'Человек — Природа',
-      'Т': 'Человек — Техника',
-      'Ч': 'Человек — Человек',
-      'З': 'Человек — Знаковая система',
-      'Х': 'Человек — Художественный образ'
-    };
-    return typeMap[letter] || letter;
-  }
-
-  isValidAnswer(answer) {
-    return answer === 'A' || answer === 'B';
-  }
-
-  getTypeForAnswer(answer) {
-    if (answer === 'A') return this.#optionAType;
-    if (answer === 'B') return this.#optionBType;
-    return null;
-  }
+  getQuestion() { return this.#questionText;}
 }
 
 export default TestQuestion;

@@ -11,30 +11,6 @@ class Parent extends User {
 
   getChildren() { return this.#children; }
 
-  async viewChildData(studentId) {
-    const response = await api.get(`/users/${studentId}`);
-    
-    if (response && response.role === 'student') {
-      return new Student(
-        response.user_id,
-        response.email,
-        response.full_name,
-        response.grade,
-        response.created_at
-      );
-    }
-    return null;
-  }
-
-  async leaveComment(studentId, professionId, text) {
-    await api.post('/comments', {
-      studentId,
-      professionId,
-      text
-    });
-    return true;
-  }
-
   async fetchChildren() {
     const data = await api.get('/parent/children');
     

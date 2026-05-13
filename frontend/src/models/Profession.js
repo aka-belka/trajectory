@@ -1,4 +1,5 @@
 import api from '../api/api';
+import { getTypeColor, getTypeFullName, getTypeShortName } from '../constants/professionTypes';
 
 class Profession {
   #id = null;
@@ -26,6 +27,9 @@ class Profession {
   getExamSubjects() { return this.#examSubjects; }
   getSalary() { return this.#salary; }
   getEducationPlaces() { return this.#educationPlaces; }
+  getTypeColor() { return getTypeColor(this.#professionType); }
+  getTypeFullName() { return getTypeFullName(this.#professionType); }
+  getTypeShortName() { return getTypeShortName(this.#professionType); }
 
   async getRecommendations() {
     const data = await api.get(`/professions/type/${this.#professionType}`);
@@ -41,39 +45,6 @@ class Profession {
       p.salary,
       p.education_places
     ));
-  }
-
-  getTypeColor() {
-    const colorMap = {
-      'П': '#2ecc71',
-      'Т': '#3498db',
-      'Ч': '#e74c3c',
-      'З': '#f39c12',
-      'Х': '#9b59b6'
-    };
-    return colorMap[this.#professionType] || '#666';
-  }
-
-  getTypeFullName() {
-    const typeMap = {
-      'П': 'Человек — Природа',
-      'Т': 'Человек — Техника',
-      'Ч': 'Человек — Человек',
-      'З': 'Человек — Знаковая система',
-      'Х': 'Человек — Художественный образ'
-    };
-    return typeMap[this.#professionType] || this.#professionType;
-  }
-
-  getTypeShortName() {
-    const shortMap = {
-      'П': 'Природа',
-      'Т': 'Техника',
-      'Ч': 'Человек',
-      'З': 'Знаковая система',
-      'Х': 'Художественный образ'
-    };
-    return shortMap[this.#professionType] || this.#professionType;
   }
 
   getExamSubjectsArray() {
@@ -99,33 +70,10 @@ class Profession {
     ));
   }
 
-  static async loadById(id) {
-    const data = await api.get(`/professions/${id}`);
-    return new Profession(
-      data.profession_id,
-      data.title,
-      data.description,
-      data.profession_type,
-      data.exam_subjects,
-      data.salary,
-      data.education_places
-    );
-  }
-
   static async findByTitle(title) {
     const all = await Profession.loadAll();
     const searchTitle = title.trim().toLowerCase();
     return all.find(p => p.getTitle().trim().toLowerCase() === searchTitle);
-  }
-
-  static getTypes() {
-    return [
-      { code: 'П', name: 'Человек — Природа', description: 'Профессии, связанные с растениями, животными и природными процессами' },
-      { code: 'Т', name: 'Человек — Техника', description: 'Профессии, связанные с обслуживанием техники, ремонтом, наладкой' },
-      { code: 'Ч', name: 'Человек — Человек', description: 'Профессии, связанные с общением, обучением, обслуживанием людей' },
-      { code: 'З', name: 'Человек — Знаковая система', description: 'Профессии, связанные с цифрами, кодами, языками, схемами' },
-      { code: 'Х', name: 'Человек — Художественный образ', description: 'Профессии, связанные с творчеством и искусством' }
-    ];
   }
 }
 

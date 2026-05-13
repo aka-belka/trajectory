@@ -44,11 +44,6 @@ class TestResult {
   getHumanScore() { return this.#humanScore; }
   getSignScore() { return this.#signScore; }
   getArtScore() { return this.#artScore; }
-  getDominantTypeFullName() { return TestResult.getTypeFullName(this.#dominantType);}
-  getDominantTypeShortName() { return TestResult.getTypeShortName(this.#dominantType);}
-  getDominantTypeColor() {return TestResult.getTypeColor(this.#dominantType);}
-  getDominantTypesFullNames() {return this.#dominantTypes.map(type => TestResult.getTypeFullName(type));}
-  getDominantTypesColors() {return this.#dominantTypes.map(type => TestResult.getTypeColor(type));}
 
   getAnswers() {
     if (!this.#answersJson) return {};
@@ -166,94 +161,6 @@ class TestResult {
     ));
     
     return professions.slice(0, maxProfessions);
-  }
-
-  getDominantTypeFullName() {
-    const typeMap = {
-      'П': 'Человек — Природа',
-      'Т': 'Человек — Техника',
-      'Ч': 'Человек — Человек',
-      'З': 'Человек — Знаковая система',
-      'Х': 'Человек — Художественный образ'
-    };
-    return typeMap[this.#dominantType] || this.#dominantType;
-  }
-
-  getDominantTypesFullNames() {
-    const typeMap = {
-      'П': 'Человек — Природа',
-      'Т': 'Человек — Техника',
-      'Ч': 'Человек — Человек',
-      'З': 'Человек — Знаковая система',
-      'Х': 'Человек — Художественный образ'
-    };
-    return this.#dominantTypes.map(type => typeMap[type] || type);
-  }
-
-  getDominantTypeShortName() {
-    const shortMap = {
-      'П': 'Природа',
-      'Т': 'Техника',
-      'Ч': 'Человек',
-      'З': 'Знаковая система',
-      'Х': 'Художественный образ'
-    };
-    return shortMap[this.#dominantType] || this.#dominantType;
-  }
-
-  getDominantTypeColor() {
-    const colorMap = {
-      'П': '#2ecc71',
-      'Т': '#3498db',
-      'Ч': '#e74c3c',
-      'З': '#f39c12',
-      'Х': '#9b59b6'
-    };
-    return colorMap[this.#dominantType] || '#666';
-  }
-
-  static getTypeColor(typeCode) {
-    const colorMap = {
-      'П': '#2ecc71',
-      'Т': '#3498db',
-      'Ч': '#e74c3c',
-      'З': '#f39c12',
-      'Х': '#9b59b6'
-    };
-    return colorMap[typeCode] || '#666';
-  }
-
-  static getTypeFullName(typeCode) {
-    const nameMap = {
-      'П': 'Человек — Природа',
-      'Т': 'Человек — Техника',
-      'Ч': 'Человек — Человек',
-      'З': 'Человек — Знаковая система',
-      'Х': 'Человек — Художественный образ'
-    };
-    return nameMap[typeCode] || typeCode;
-  }
-
-  static getTypeShortName(typeCode) {
-    const shortMap = {
-      'П': 'Природа',
-      'Т': 'Техника',
-      'Ч': 'Человек',
-      'З': 'Знаковая система',
-      'Х': 'Художественный образ'
-    };
-    return shortMap[typeCode] || typeCode;
-  }
-
-  static getTypeDescription(typeCode) {
-    const descriptions = {
-      'П': 'Вам нравится работать с природой, животными и растениями. Вы любите наблюдать, изучать и заботиться.',
-      'Т': 'У вас есть склонность к работе с техникой, механизмами и инструментами. Вам интересно разбираться в устройстве вещей.',
-      'Ч': 'Вы хорошо взаимодействуете с людьми, умеете общаться, помогать и обучать. Вам важно работать в коллективе.',
-      'З': 'Вы любите работать с цифрами, схемами, символами и текстами. Вам нравится анализировать и систематизировать.',
-      'Х': 'У вас развито творческое мышление, вы любите создавать что-то новое и красивое.'
-    };
-    return descriptions[typeCode] || '';
   }
 
   async delete() {

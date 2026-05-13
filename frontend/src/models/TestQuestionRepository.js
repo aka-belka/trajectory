@@ -35,15 +35,6 @@ class TestQuestionRepository {
     
     return question;
   }
-
-  async getCount() {
-    const allQuestions = await this.getAll();
-    return allQuestions.length;
-  }
-
-  clearCache() {
-    this.#questionsCache = null;
-  }
 }
 
 export default TestQuestionRepository;

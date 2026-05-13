@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmModal from '../common/ConfirmModal';
-import TestResult from '../../models/TestResult';
+import TestResult from "../../models/TestResult";
+import {getTypeColor, getTypeFullName} from '../../constants/professionTypes';
 import './ResultsTab.css';
 
 function ResultsTab({ student, refreshTrigger, onContinueTest }) {
@@ -94,14 +95,14 @@ function ResultsTab({ student, refreshTrigger, onContinueTest }) {
               <span 
                 key={typeCode} 
                 className="type-badge-small" 
-                style={{ backgroundColor: TestResult.getTypeColor(typeCode) }}
+                style={{ backgroundColor: getTypeColor(typeCode) }}
               >
                 {typeCode}
               </span>
             ))}
           </div>
           <span className="type-name-multi">
-            {dominantTypes.map(typeCode => TestResult.getTypeFullName(typeCode)).join(', ')}
+            {dominantTypes.map(typeCode => getTypeFullName(typeCode)).join(', ')}
           </span>
         </div>
       );
@@ -111,11 +112,11 @@ function ResultsTab({ student, refreshTrigger, onContinueTest }) {
       <div className="result-type">
         <span 
           className="type-badge" 
-          style={{ backgroundColor: result.getDominantTypeColor() }}
+          style={{ backgroundColor: getTypeColor(result.getDominantType()) }}
         >
           {result.getDominantType()}
         </span>
-        <span className="type-name">{result.getDominantTypeFullName()}</span>
+        <span className="type-name">{getTypeFullName(result.getDominantType())}</span>
       </div>
     );
   };

@@ -1,4 +1,5 @@
 import api from '../api/api';
+import Profession from './Profession';
 
 class FavoriteProfession {
   #professionId = null;
@@ -23,15 +24,27 @@ class FavoriteProfession {
     const data = await api.get(`/favorites/${studentId}`);
     
     return data.map(item => new FavoriteProfession(
-      studentId,
-      item.profession_id,
-      item.added_at
+      item.profession_id
     ));
   }
 
   static async isFavorite(studentId, professionId) {
     const favorites = await FavoriteProfession.getByStudent(studentId);
     return favorites.some(f => f.getProfessionId() === professionId);
+  }
+
+  static async getFavoriteProfessions(studentId) {
+    const data = await api.get(`/favorites/${studentId}`);
+    
+    return data.map(p => new Profession(
+      p.profession_id,
+      p.title,
+      p.description,
+      p.profession_type,
+      p.exam_subjects,
+      p.salary,
+      p.education_places
+    ));
   }
 }
 

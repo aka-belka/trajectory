@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Student from '../models/Student';
 import TestResult from '../models/TestResult';
 import ProfessionModal from '../components/professions/ProfessionModal';
+import {getTypeColor, getTypeFullName, getTypeDescription} from '../constants/professionTypes';
 import './ResultsPage.css';
 
 function ResultsPage({ userId }) {
@@ -130,7 +131,7 @@ function ResultsPage({ userId }) {
                   <div 
                     key={typeCode} 
                     className="dominant-badge" 
-                    style={{ backgroundColor: TestResult.getTypeColor(typeCode) }}
+                    style={{ backgroundColor: getTypeColor(typeCode) }}
                   >
                     {typeCode}
                   </div>
@@ -143,20 +144,20 @@ function ResultsPage({ userId }) {
               <ul className="combined-types-list">
                 {dominantTypes.map(typeCode => (
                   <li key={typeCode}>
-                    <strong>{TestResult.getTypeFullName(typeCode)}</strong> — {TestResult.getTypeDescription(typeCode)}
+                    <strong>{getTypeFullName(typeCode)}</strong> — {getTypeDescription(typeCode)}
                   </li>
                 ))}
               </ul>
             </>
           ) : (
             <>
-              <div className="dominant-badge" style={{ backgroundColor: result.getDominantTypeColor() }}>
+              <div className="dominant-badge" style={{ backgroundColor: getTypeColor(result.getDominantType()) }}>
                 {result.getDominantType()}
               </div>
               <h2 className="dominant-title">Ваш доминирующий тип</h2>
-              <p className="dominant-name">{result.getDominantTypeFullName()}</p>
+              <p className="dominant-name">{getTypeFullName(result.getDominantType())}</p>
               <p className="dominant-description">
-                {TestResult.getTypeDescription(result.getDominantType())}
+                {getTypeDescription(result.getDominantType())}
               </p>
             </>
           )}

@@ -2,25 +2,6 @@ import api from '../api/api';
 import TestResult from './TestResult';
 
 class TestResultRepository {
-  async save(result) {
-    if (result.isCompleted()) {
-      await api.post('/test/finish', {
-        testResultId: result.getId(),
-        natureScore: result.getNatureScore(),
-        techniqueScore: result.getTechniqueScore(),
-        humanScore: result.getHumanScore(),
-        signScore: result.getSignScore(),
-        artScore: result.getArtScore(),
-        dominantType: result.getDominantType(),
-        dominantTypes: result.getDominantTypes()
-      });
-    } else {
-      throw new Error('Тест должен быть завершен!');
-    }
-    
-    return result;
-  }
-
   async findById(id) {
     const data = await api.get(`/test/result/${id}`);
 
@@ -80,21 +61,6 @@ class TestResultRepository {
   async findUnfinishedByStudent(studentId) {
     const allResults = await this.findByStudent(studentId);
     return allResults.find(r => !r.isCompleted()) || null;
-  }
-
-  async create(studentId) {
-    const response = await api.post('/test/start', { studentId });
-    
-    return new TestResult(
-      response.testResultId,
-      studentId,
-      '{}',
-      0,
-      false,
-      null,
-      0, 0, 0, 0, 0,
-      null
-    );
   }
 }
 
