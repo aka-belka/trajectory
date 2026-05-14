@@ -5,7 +5,18 @@ import ProfessionModal from '../components/professions/ProfessionModal';
 import Profession from '../models/Profession';
 import UserSession from '../models/UserSession'; 
 import { useAuth } from '../contexts/AuthContext'; 
+import { getAllTypes, getTypeExamples, getTypeColor, getTypeFullName } from '../constants/professionTypes';
 import './HomePage.css';
+import doctorImg from '../assets/images/doctor.png';
+import programmerImg from '../assets/images/programmer.png';
+import veterinarianImg from '../assets/images/veterinarian.png';
+import translatorImg from '../assets/images/translator.png';
+import musicianImg from '../assets/images/musician.png';
+
+import teacherImg from '../assets/images/teacher.png';
+import engineerImg from '../assets/images/engineer.png';
+import designerImg from '../assets/images/designer.png';
+import analystImg from '../assets/images/analyst.png';
 
 function HomePage({ isAuthenticated }) {
   const { user } = useAuth();
@@ -13,6 +24,23 @@ function HomePage({ isAuthenticated }) {
   const [hasUnfinishedTest, setHasUnfinishedTest] = useState(false);
   const [selectedProfession, setSelectedProfession] = useState(null);
   const [showProfessionModal, setShowProfessionModal] = useState(false);
+
+  const heroImages = [
+    { src: doctorImg, alt: 'Врач', title: 'Врач' },
+    { src: programmerImg, alt: 'Программист', title: 'Программист' },
+    { src: veterinarianImg, alt: 'Ветеринар', title: 'Ветеринар' },
+    { src: translatorImg, alt: 'Переводчик', title: 'Переводчик' },
+    { src: musicianImg, alt: 'Музыкант', title: 'Музыкант' }
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const role = user?.role;
@@ -65,14 +93,7 @@ function HomePage({ isAuthenticated }) {
     checkUnfinishedTest();
   };
 
-  const professionTypes = [
-    { code: 'П', name: 'Человек — Природа', description: 'Ветеринар, агроном, эколог, лесничий, зоолог', icon: '🌿', color: '#2ecc71' },
-    { code: 'Т', name: 'Человек — Техника', description: 'Инженер-конструктор, программист, механик, электрик, сварщик', icon: '⚙️', color: '#3498db' },
-    { code: 'Ч', name: 'Человек — Человек', description: 'Врач, учитель, психолог, менеджер, юрист', icon: '🤝', color: '#e74c3c' },
-    { code: 'З', name: 'Человек — Знаковая система', description: 'Бухгалтер, аналитик данных, переводчик, экономист', icon: '📊', color: '#f39c12' },
-    { code: 'Х', name: 'Человек — Художественный образ', description: 'Дизайнер интерьеров, художник, архитектор, музыкант', icon: '🎨', color: '#9b59b6' }
-  ];
-
+  const professionTypesList = getAllTypes();
   const popularProfessions = [
     'Программист', 'Врач', 'Дизайнер интерьеров', 'Аналитик данных', 'Учитель', 'Инженер-конструктор'
   ];
@@ -105,6 +126,19 @@ function HomePage({ isAuthenticated }) {
               Бесплатный тест по методике Е.А. Климова помогает определить профессиональные склонности ученика
             </p>
           </div>
+          <div className="hero-parent-visual">
+            <div className="hero-image-container">
+              {heroImages.map((image, idx) => (
+                <img
+                  key={idx}
+                  src={image.src}
+                  alt={image.alt}
+                  className={`hero-slide-image ${idx === currentImageIndex ? 'active' : ''}`}
+                />
+              ))}
+              <div className="hero-image-label">{heroImages[currentImageIndex].title}</div>
+            </div>
+          </div>
         </section>
 
         <section className="info-section">
@@ -131,14 +165,11 @@ function HomePage({ isAuthenticated }) {
         <section className="profession-types">
           <h2 className="section-title">5 типов профессий</h2>
           <div className="types-grid">
-            {professionTypes.map(type => (
+            {professionTypesList.map(type => (
               <div key={type.code} className="type-card" style={{ borderTopColor: type.color }}>
-                <div className="type-icon" style={{ backgroundColor: `${type.color}20`, color: type.color }}>
-                  {type.icon}
-                </div>
-                <h3 className="type-name">{type.name}</h3>
+                <h3 className="type-name">{type.fullName}</h3>
                 <div className="type-professions-list">
-                  {type.description.split(', ').map(professionName => (
+                  {getTypeExamples(type.code).split(', ').map(professionName => (
                     <span 
                       key={professionName} 
                       className="type-profession-item"
@@ -208,9 +239,21 @@ function HomePage({ isAuthenticated }) {
             <p className="unfinished-hint">У вас есть незавершённый тест. Продолжите с того места, где остановились.</p>
           )}
         </div>
-        <div className="hero-image">
-          <div className="hero-emoji">🎯</div>
+        <div className="hero-visual">
+          <div className="hero-image-container">
+            {heroImages.map((image, idx) => (
+              <img
+                key={idx}
+                src={image.src}
+                alt={image.alt}
+                className={`hero-slide-image ${idx === currentImageIndex ? 'active' : ''}`}
+              />
+            ))}
+            <div className="hero-image-label">{heroImages[currentImageIndex].title}</div>
+          </div>
+          <div className="trajectory-line"></div>
         </div>
+        
       </section>
 
       <section className="how-it-works">
@@ -240,14 +283,11 @@ function HomePage({ isAuthenticated }) {
       <section className="profession-types">
         <h2 className="section-title">5 типов профессий</h2>
         <div className="types-grid">
-          {professionTypes.map(type => (
+          {professionTypesList.map(type => (
             <div key={type.code} className="type-card" style={{ borderTopColor: type.color }}>
-              <div className="type-icon" style={{ backgroundColor: `${type.color}20`, color: type.color }}>
-                {type.icon}
-              </div>
-              <h3 className="type-name">{type.name}</h3>
+              <h3 className="type-name">{type.fullName}</h3>
               <div className="type-professions-list">
-                {type.description.split(', ').map(professionName => (
+                {getTypeExamples(type.code).split(', ').map(professionName => (
                   <span 
                     key={professionName} 
                     className="type-profession-item"
