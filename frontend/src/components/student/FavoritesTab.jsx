@@ -4,6 +4,8 @@ import FavoriteProfession from '../../models/FavoriteProfession';
 import Comment from '../../models/Comment';
 import ConfirmModal from '../common/ConfirmModal';
 import './FavoritesTab.css';
+import parentImg from '../../assets/images/parent.png';
+import messageImg from '../../assets/images/message.png';
 
 function FavoritesTab({ student, refreshTrigger, onRefresh, userId }) {
   const [favorites, setFavorites] = useState([]);
@@ -107,7 +109,7 @@ function FavoritesTab({ student, refreshTrigger, onRefresh, userId }) {
   if (favorites.length === 0) {
     return (
       <div className="favorites-empty">
-        <p>⭐ У вас пока нет избранных профессий</p>
+        <p> У вас пока нет избранных профессий</p>
         <p className="empty-hint">Добавляйте профессии из результатов теста</p>
       </div>
     );
@@ -134,30 +136,28 @@ function FavoritesTab({ student, refreshTrigger, onRefresh, userId }) {
               </div>
               <p className="favorite-description">{profession.getDescription()?.substring(0, 100)}...</p>
             </div>
-            
-            <div className="favorite-actions">
-              <button 
-                className="details-btn"
-                onClick={() => handleOpenProfession(profession)}
-              >
-                📖 Подробнее
-              </button>
-              <button 
-                className="remove-btn"
-                onClick={(e) => openConfirmModal(profession.getId(), e)}
-              >
-                ✖ Удалить
-              </button>
-              
               {comments[profession.getId()] && (
                 <div 
                   className="parent-comment-icon" 
                   title="Комментарий родителя"
                   onClick={() => handleShowComment(profession.getId())}
                 >
-                  💬
+                  <img src={messageImg} className="message-pt" alt="сообщение" />
                 </div>
-              )}
+              )}            
+            <div className="favorite-actions">
+              <button 
+                className="details-btn-fa"
+                onClick={() => handleOpenProfession(profession)}
+              >
+                Подробнее
+              </button>
+              <button 
+                className="remove-btn"
+                onClick={(e) => openConfirmModal(profession.getId(), e)}
+              >
+                Удалить
+              </button>
             </div>
           </div>
         ))}
@@ -165,9 +165,9 @@ function FavoritesTab({ student, refreshTrigger, onRefresh, userId }) {
       {showCommentModal && selectedComment && (
         <div className="comment-modal-overlay" onClick={() => setShowCommentModal(false)}>
           <div className="comment-modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>💬 Комментарий родителя</h3>
+            <h3>Комментарий родителя</h3>
             <p className="comment-parent-name">
-               👪 {selectedComment.getName()} 
+               <img src={parentImg} className="parent-ft" alt="родитель" /> {selectedComment.getName()} 
             </p>
             <p className="comment-text">{selectedComment.getText()}</p>
             <small>Дата: {new Date(selectedComment.getCreatedAt()).toLocaleDateString()}</small>

@@ -1,150 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 .favorites-tab {
-  padding: 20px 0;
+  padding: 0;
 }
 
 .favorites-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  align-items: baseline;
+  margin-bottom: 32px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .favorites-header h2 {
-  font-size: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
   color: #1a1a2e;
+  margin: 0;
 }
 
 .favorites-count {
-  color: #4a6cf7;
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #535353;
+  background: white;
+  padding: 4px 12px;
+  border-radius: 40px;
 }
 
 .favorites-loading,
 .favorites-empty {
   text-align: center;
-  padding: 60px 20px;
-  color: #666;
+  padding: 80px 40px;
+  background: white;
+  border-radius: 32px;
+  font-family: 'Inter', sans-serif;
+}
+
+.favorites-loading {
+  color: #888;
+}
+
+.favorites-empty p {
+  color: #888;
+  margin-bottom: 8px;
 }
 
 .empty-hint {
-  font-size: 14px;
-  margin-top: 8px;
-  color: #999;
+  font-size: 0.8rem;
+  color: #bbb;
 }
 
 .favorites-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .favorite-card {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  background-color: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  transition: all 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.04);
   flex-wrap: wrap;
 }
 
 .favorite-card:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
 }
 
 .favorite-info {
   flex: 1;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .favorite-title {
-  font-size: 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #1a1a2e;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .favorite-type {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #aaa;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
 }
 
 .type-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
 }
 
 .favorite-description {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #777;
+  line-height: 1.6;
 }
 
 .favorite-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.details-btn {
-  background-color: #eef2ff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
+.details-btn-fa {
+  background: transparent;
+  border: 1px solid #1a1a2e;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: #4a6cf7;
+  letter-spacing: 0.5px;
+  color: #1a1a2e;
   cursor: pointer;
-  transition: background-color 0.2s;
+  padding: 6px 13px;
+  transition: color 0.2s;
 }
 
-.details-btn:hover {
-  background-color: #e0e7ff;
+.details-btn-fa:hover {
+  background: #1a1a2e;
+  color: white;
 }
+
 
 .remove-btn {
-  background-color: #fee;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
+  background: transparent;
+  border: 1px solid #ca0505d5;
+  color: #ca0505d5;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
   font-weight: 500;
-  color: #e74c3c;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .remove-btn:hover {
-  background-color: #fdd;
+  background: #ca0505d5;
+  color: white;
 }
 
 .parent-comment-icon {
-  font-size: 20px;
-  cursor: help;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 4px;
+  opacity: 0.6;
 }
 
-@media (max-width: 640px) {
-  .favorite-card {
-    flex-direction: column;
-  }
-  
-  .favorite-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
+.parent-comment-icon:hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .comment-modal-overlay {
@@ -153,7 +182,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,62 +191,77 @@
 }
 
 .comment-modal-content {
-  background-color: white;
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 400px;
+  background: #f7f3ec;
+  border-radius: 32px;
+  padding: 32px;
+  max-width: 450px;
   width: 90%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
 }
 
 .comment-modal-content h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
   color: #1a1a2e;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
-.comment-modal-content p {
+.comment-parent-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #483a1e;
   margin-bottom: 12px;
-  line-height: 1.5;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  text-transform: uppercase;
+}
+
+.comment-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: #333;
+  margin: 16px 0;
 }
 
 .comment-modal-content small {
   display: block;
-  margin-bottom: 20px;
-  color: #999;
-  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-bottom: 24px;
 }
 
 .comment-modal-content button {
-  background-color: #4a6cf7;
+  background: transparent;
+  border: 1px solid #1a1a2e;
+  color: #1a1a2e;
+  padding: 8px 24px;
+  border-radius: 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.comment-modal-content button:hover {
+  background: #1a1a2e;
   color: white;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
-.parent-comment-icon {
-  font-size: 22px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  padding: 4px;
+.message-pt{
+  width: 25px;
+  height: 25px;
 }
 
-.parent-comment-icon:hover {
-  transform: scale(1.1);
-}
-
-.comment-parent-name {
-  font-weight: bold;
-  color: #4a6cf7;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
-}
-
-.comment-text {
-  margin: 10px 0;
-  line-height: 1.5;
+.parent-ft{
+  width: 25px;
+  height: 25px;
 }

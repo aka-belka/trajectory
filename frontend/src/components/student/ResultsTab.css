@@ -1,65 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 .results-tab {
-  padding: 20px 0;
+  padding: 0;
 }
 
 .results-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  align-items: baseline;
+  margin-bottom: 32px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .results-header h2 {
-  font-size: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
   color: #1a1a2e;
+  margin: 0;
 }
 
 .results-count {
-  color: #4a6cf7;
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #4e4d4d;
+  background: white;
+  padding: 4px 12px;
+  border-radius: 40px;
 }
 
 .results-loading,
 .results-empty {
   text-align: center;
-  padding: 60px 20px;
-  color: #666;
+  padding: 80px 40px;
+  background: white;
+  border-radius: 32px;
+  font-family: 'Inter', sans-serif;
+}
+
+.results-loading {
+  color: #888;
+}
+
+.results-empty p {
+  color: #888;
+  margin-bottom: 8px;
 }
 
 .empty-hint {
-  font-size: 14px;
-  margin-top: 8px;
-  color: #999;
+  font-size: 0.8rem;
+  color: #bbb;
 }
 
 .results-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .result-card {
   display: flex;
-  gap: 16px;
-  background-color: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
+  gap: 20px;
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  transition: all 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .result-card:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+.result-card.unfinished {
+  background: #fffbf5;
+  border-left: 3px solid #d4a35c;
 }
 
 .result-number {
-  font-size: 24px;
-  font-weight: 700;
-  color: #cbd5e1;
-  min-width: 50px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.566);
+  min-width: 55px;
+  line-height: 1;
 }
 
 .result-info {
@@ -67,211 +96,19 @@
 }
 
 .result-date {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 12px;
 }
 
 .result-type {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.type-badge {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 32px;
-  font-weight: 700;
-  color: white;
-  font-size: 16px;
-}
-
-.type-name {
-  font-weight: 500;
-  color: #1a1a2e;
-}
-
-.result-scores {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.score {
-  font-size: 13px;
-  color: #666;
-  background-color: #f8f9fa;
-  padding: 4px 12px;
-  border-radius: 20px;
-}
-
-@media (max-width: 640px) {
-  .result-card {
-    flex-direction: column;
-  }
-  
-  .result-number {
-    min-width: auto;
-  }
-  
-  .result-scores {
-    gap: 8px;
-  }
-}
-
-.result-card.unfinished {
-  border-left: 4px solid #f39c12;
-  background-color: #fffbf0;
-}
-
-.continue-test-btn {
-  margin-top: 12px;
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.continue-test-btn:hover {
-  background-color: #e67e22;
-}
-
-.delete-result-btn {
-  margin-top: 12px;
-  background-color: #fee;
-  color: #e74c3c;
-  border: 1px solid #fcc;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-right: 10px;
-}
-
-.delete-result-btn:hover:not(:disabled) {
-  background-color: #fdd;
-  transform: translateY(-1px);
-}
-
-.delete-result-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.result-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.result-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.details-btn {
-  background-color: #4a6cf7;
-  color: white;
-  border: none;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.details-btn:hover {
-  background-color: #3a5bd5;
-}
-
-.continue-test-btn {
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.continue-test-btn:hover {
-  background-color: #e67e22;
-}
-
-.delete-result-btn {
-  background-color: #fee;
-  color: #e74c3c;
-  border: 1px solid #fcc;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.delete-result-btn:hover:not(:disabled) {
-  background-color: #fdd;
-}
-
-.delete-result-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.result-type-multi {
-  margin-bottom: 8px;
-}
-
-.type-badges {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.type-badge-small {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  color: white;
-}
-
-.type-name-multi {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  display: block;
-}
-
-.result-type {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .type-badge {
@@ -281,13 +118,138 @@
   line-height: 40px;
   text-align: center;
   font-size: 18px;
-  font-weight: bold;
-  border-radius: 10px;
+  font-weight: 700;
+  border-radius: 12px;
   color: white;
 }
 
 .type-name {
-  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: #333;
+  color: #1a1a2e;
+}
+
+.result-type-multi {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.type-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.type-badge-small {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  color: white;
+}
+
+.type-name-multi {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a1a2e;
+  display: block;
+}
+
+.result-scores {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.score {
+  display: flex;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #000000;
+  background: #f5f3ef;
+  padding: 4px 12px;
+  border-radius: 30px;
+  align-items: center;
+  gap: 5px;
+}
+.result-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.details-btn-rt {
+  background: transparent;
+  border: 1px solid #1a1a2e;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: #1a1a2e;
+  cursor: pointer;
+  padding: 6px 13px;
+  transition: color 0.2s;
+}
+
+.details-btn-rt:hover {
+  background: #1a1a2e;
+  color: white;
+}
+
+.continue-test-btn {
+  background: transparent;
+  border: 1px solid #d4a35c;
+  color: #d4a35c;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.continue-test-btn:hover {
+  background: #d4a35c;
+  color: white;
+}
+
+.delete-result-btn {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #5c1212;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-result-btn:hover:not(:disabled) {
+  background: #e74c3c;
+  color: #ffffff;
+}
+
+.delete-result-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon-rt{
+  width: 15px;
+  height: 15px;
 }

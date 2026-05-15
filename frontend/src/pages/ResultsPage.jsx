@@ -5,6 +5,11 @@ import TestResult from '../models/TestResult';
 import ProfessionModal from '../components/professions/ProfessionModal';
 import {getTypeColor, getTypeFullName, getTypeDescription} from '../constants/professionTypes';
 import './ResultsPage.css';
+import leafImg from '../assets/images/leaf.png';
+import gearImg from '../assets/images/gear.png';
+import handshakeImg from '../assets/images/handshake.png';
+import scheduleImg from '../assets/images/schedule.png';
+import paletteImg from '../assets/images/palette.png';
 
 function ResultsPage({ userId }) {
   const location = useLocation();
@@ -77,11 +82,11 @@ function ResultsPage({ userId }) {
   }
 
   const scores = [
-    { label: 'Природа', value: result.getNatureScore(), icon: '🌿', color: '#2ecc71', type: 'П' },
-    { label: 'Техника', value: result.getTechniqueScore(), icon: '⚙️', color: '#3498db', type: 'Т' },
-    { label: 'Человек', value: result.getHumanScore(), icon: '🤝', color: '#e74c3c', type: 'Ч' },
-    { label: 'Знаковая система', value: result.getSignScore(), icon: '📊', color: '#f39c12', type: 'З' },
-    { label: 'Художественный образ', value: result.getArtScore(), icon: '🎨', color: '#9b59b6', type: 'Х' }
+    { label: 'Природа', value: result.getNatureScore(), icon: leafImg, color: '#7c9a6e', type: 'П' },
+    { label: 'Техника', value: result.getTechniqueScore(), icon: gearImg, color: '#6b8c9e', type: 'Т' },
+    { label: 'Человек', value: result.getHumanScore(), icon: handshakeImg, color: '#c97b5d', type: 'Ч' },
+    { label: 'Знаковая система', value: result.getSignScore(), icon: scheduleImg, color: '#d4a35c', type: 'З' },
+    { label: 'Художественный образ', value: result.getArtScore(), icon: paletteImg, color: '#a87b9e', type: 'Х' }
   ];
 
   const dominantTypes = result.getDominantTypes(); 
@@ -104,7 +109,7 @@ function ResultsPage({ userId }) {
             {scores.map(score => (
               <div key={score.type} className="score-card">
                 <div className="score-header">
-                  <span className="score-icon">{score.icon}</span>
+                  <span className="score-icon" style={{ background: score.color }}><img src={score.icon} className="icon-rp" alt="иконка типа профессии" /></span>
                   <span className="score-label">{score.label}</span>
                 </div>
                 <div className="score-bar-container">
@@ -125,7 +130,6 @@ function ResultsPage({ userId }) {
         <div className="dominant-section">
           {isMultiType ? (
             <>
-              <h2 className="dominant-title">Ваши доминирующие типы</h2>
               <div className="dominant-badges">
                 {dominantTypes.map(typeCode => (
                   <div 
@@ -137,6 +141,7 @@ function ResultsPage({ userId }) {
                   </div>
                 ))}
               </div>
+              <h2 className="dominant-title">Ваши доминирующие типы</h2>
               <p className="dominant-description">
                 У вас ярко выражены склонности к {dominantTypes.length} направлениям.
                 Вы можете рассмотреть профессии из следующих категорий:
@@ -151,9 +156,7 @@ function ResultsPage({ userId }) {
             </>
           ) : (
             <>
-              <div className="dominant-badge" style={{ backgroundColor: getTypeColor(result.getDominantType()) }}>
-                {result.getDominantType()}
-              </div>
+              <div className="dominant-badges"><div className="dominant-badge" style={{ backgroundColor: getTypeColor(result.getDominantType()) }}>{result.getDominantType()}</div></div>
               <h2 className="dominant-title">Ваш доминирующий тип</h2>
               <p className="dominant-name">{getTypeFullName(result.getDominantType())}</p>
               <p className="dominant-description">

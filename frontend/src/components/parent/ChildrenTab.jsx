@@ -3,6 +3,7 @@ import ParentChildModel from '../../models/ParentChild';
 import ConfirmModal from '../common/ConfirmModal';
 import ChildModal from './ChildModal';
 import './ChildrenTab.css';
+import studentImg from '../../assets/images/student.png';
 
 function ChildrenTab({ parent }) {
   const [children, setChildren] = useState([]);
@@ -79,14 +80,14 @@ function ChildrenTab({ parent }) {
   };
 
   if (loading) {
-    return <div className="children-loading">Загрузка списка детей...</div>;
+    return <div className="children-loading-ct">Загрузка списка детей...</div>;
   }
 
   if (children.length === 0) {
     return (
-      <div className="children-empty">
-        <p>😊 У вас пока нет привязанных детей</p>
-        <p className="empty-hint">
+      <div className="children-empty-ct">
+        <p>У вас пока нет привязанных детей</p>
+        <p className="empty-hint-ct">
           Попросите ребёнка отправить вам приглашение из его личного кабинета
         </p>
       </div>
@@ -94,33 +95,33 @@ function ChildrenTab({ parent }) {
   }
 
   return (
-    <div className="children-tab">
-      <div className="children-header">
+    <div className="children-tab-ct">
+      <div className="children-header-ct">
         <h2>Мои дети</h2>
-        <p className="children-count">Всего: {children.length}</p>
+        <p className="children-count-ct">Всего: {children.length}</p>
       </div>
 
-      <div className="children-list">
+      <div className="children-list-ct">
         {children.map(child => (
-          <div key={child.getId()} className="child-card">
-            <div className="child-info">
-              <div className="child-avatar">
-                <span className="avatar-emoji">👨‍🎓</span>
+          <div key={child.getId()} className="child-card-ct">
+            <div className="child-info-ct" onClick={() => handleOpenChild(child)}>
+              <div className="child-avatar-ct">
+                <span className="avatar-emoji-ct"><img src={studentImg} className="student-icon" alt="студент" /></span>
               </div>
               <div>
-                <h3 className="child-name">{child.getFullName()}</h3>
-                <p className="child-grade">{child.getGrade()} класс</p>
+                <h3 className="child-name-ct">{child.getFullName()}</h3>
+                <p className="child-grade-ct">{child.getGrade()} класс</p>
               </div>
             </div>
-            <div className="child-actions">
+            <div className="child-actions-ct">
               <button 
-                className="details-child-btn"
+                className="details-child-btn-ct"
                 onClick={() => handleOpenChild(child)}
               >
-                📖 Подробнее
+                Подробнее
               </button>
               <button 
-                className="unlink-child-btn"
+                className="unlink-child-btn-ct"
                 onClick={(e) => openConfirmModal(child, e)}
               >
                 Отвязать

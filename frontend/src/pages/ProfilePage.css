@@ -32,22 +32,13 @@
 }
 
 .type-profession-item:hover {
-  background-color: #4a6cf7;
+  background-color: #3a2d15;
   color: white;
   transform: translateY(-1px);
 }
-
-.popular-card {
+.form-input:hover,
+.form-select:hover {
+  background-color: #e4e3de;
+  border-color: #d0cfca;
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-.popular-card:hover {
-  background-color: #4a6cf7;
-  color: white;
-  transform: translateY(-2px);
-}
-
-.popular-card:hover .popular-name {
-  color: white;
 }

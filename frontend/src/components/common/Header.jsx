@@ -2,10 +2,21 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ConfirmModal from './ConfirmModal';
 import './Header.css';
+import airplaneImg from '../../assets/images/airplane.png';
+
 
 function Header({ isAuthenticated, userRole, onLogout }) {
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigate = (path) => {
+    navigate(path);
+    scrollToTop();
+  };
 
   const handleLogoutClick = () => {
     setShowLogoutConfirm(true);
@@ -15,14 +26,11 @@ function Header({ isAuthenticated, userRole, onLogout }) {
     setShowLogoutConfirm(false);
     onLogout();
     navigate('/');
+    scrollToTop();
   };
 
   const handleCancelLogout = () => {
     setShowLogoutConfirm(false);
-  };
-
-  const getProfileLink = () => {
-    return '/profile';
   };
 
   const getUserRoleText = () => {
@@ -31,19 +39,26 @@ function Header({ isAuthenticated, userRole, onLogout }) {
     return '';
   };
 
+  
+
   return (
     <>
       <header className="header">
         <div className="header-container">
           <div className="logo">
-            <Link to="/">
-              <span className="logo-icon">🎯</span>
-              <span className="logo-text">Профориентатор</span>
+            <Link to="/" onClick={(e) => { e.preventDefault(); handleNavigate('/'); }}>
+              <span className="logo-icon">
+                <img
+                  src={airplaneImg}
+                  className="logo-icon"
+                />
+              </span>
+              <span className="logo-text">ТРАЕКТОРИЯ</span>
             </Link>
           </div>
 
           <nav className="nav">
-            <Link to="/" className="nav-link">Главная</Link>
+            <Link to="/" onClick={(e) => { e.preventDefault(); handleNavigate('/'); }} className="nav-link">Главная</Link>
             
             {isAuthenticated && userRole === 'student' && (
               <Link to="/profile" className="nav-link">Личный кабинет</Link>

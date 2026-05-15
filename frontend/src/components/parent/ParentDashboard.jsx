@@ -101,43 +101,43 @@ function ParentDashboard({ userId, onLogout }) {
 
   const InvitationsTab = () => {
     if (loadingInvitations) {
-      return <div className="invitations-loading">Загрузка приглашений...</div>;
+      return <div className="invitations-loading-pd">Загрузка приглашений...</div>;
     }
 
     if (invitations.length === 0) {
       return (
-        <div className="invitations-empty">
-          <p>📭 У вас нет ожидающих приглашений</p>
-          <p className="empty-hint">Попросите ребёнка отправить вам приглашение</p>
+        <div className="invitations-empty-pd">
+          <p>У вас нет ожидающих приглашений</p>
+          <p className="empty-hint-pd">Попросите ребёнка отправить вам приглашение</p>
         </div>
       );
     }
 
     return (
-      <div className="invitations-tab">
+      <div className="invitations-tab-pd">
         <h3>Ожидающие приглашения</h3>
-        <div className="invitations-list">
+        <div className="invitations-list-pd">
           {invitations.map(inv => (
-            <div key={inv.getId()} className="invitation-card">
-              <div className="invitation-info">
-                <span className="invitation-icon">👨‍🎓</span>
-                <div className="invitation-details">
-                  <p className="invitation-title">Приглашение от ученика</p>
-                  <p className="invitation-subtitle">{inv.getName() || `Ученик #${inv.getStudentId()}`}</p>
+            <div key={inv.getId()} className="invitation-card-pd">
+              <div className="invitation-info-pd">
+                <span className="invitation-icon-pd">👨‍🎓</span>
+                <div className="invitation-details-pd">
+                  <p className="invitation-title-pd">Приглашение от ученика</p>
+                  <p className="invitation-subtitle-pd">{inv.getName() || `Ученик #${inv.getStudentId()}`}</p>
                 </div>
               </div>
-              <div className="invitation-actions">
+              <div className="invitation-actions-pd">
                 <button 
-                  className="accept-btn"
+                  className="accept-btn-pd"
                   onClick={() => acceptInvitation(inv.getInvitationToken())}
                 >
-                  ✅ Принять
+                  Принять
                 </button>
                 <button 
-                  className="reject-btn"
+                  className="reject-btn-pd"
                   onClick={(e) => openConfirmModal(inv, e)}
                 >
-                  ❌ Отклонить
+                  Отклонить
                 </button>
               </div>
             </div>
@@ -148,31 +148,31 @@ function ParentDashboard({ userId, onLogout }) {
   };
 
   const tabs = {
-    children: { label: '👨‍👩‍👧 Мои дети', component: <ChildrenTab parent={parent} /> },
-    invitations: { label: '📬 Приглашения', component: <InvitationsTab /> },
-    settings: { label: '⚙️ Настройки', component: <ParentSettingsTab parent={parent} onRefresh={updateParentName}/> }
+    children: { label: 'Мои дети', component: <ChildrenTab parent={parent} /> },
+    invitations: { label: 'Приглашения', component: <InvitationsTab /> },
+    settings: { label: 'Настройки', component: <ParentSettingsTab parent={parent} onRefresh={updateParentName}/> }
   };
 
   if (loading) {
-    return <div className="parent-dashboard-loading">Загрузка...</div>;
+    return <div className="parent-dashboard-loading-pd">Загрузка...</div>;
   }
 
   if (!parent) {
-    return <div className="parent-dashboard-error">Не удалось загрузить данные</div>;
+    return <div className="parent-dashboard-error-pd">Не удалось загрузить данные</div>;
   }
 
   return (
-    <div className="parent-dashboard">
-      <div className="dashboard-header">
+    <div className="parent-dashboard-pd">
+      <div className="dashboard-header-pd">
         <h1>Личный кабинет родителя</h1>
-        <p className="parent-name">{parentName}</p>
+        <p className="parent-name-pd">{parentName}</p>
       </div>
 
-      <div className="dashboard-tabs">
+      <div className="dashboard-tabs-pd">
         {Object.entries(tabs).map(([key, { label }]) => (
           <button
             key={key}
-            className={`tab-btn ${activeTab === key ? 'active' : ''}`}
+            className={`tab-btn-pd ${activeTab === key ? 'active' : ''}`}
             onClick={() => setActiveTab(key)}
           >
             {label}
@@ -180,7 +180,7 @@ function ParentDashboard({ userId, onLogout }) {
         ))}
       </div>
 
-      <div className="dashboard-content">
+      <div className="dashboard-content-pd">
         {tabs[activeTab].component}
       </div>
 
@@ -194,7 +194,6 @@ function ParentDashboard({ userId, onLogout }) {
         cancelText="Отмена"
         confirmStyle="warning"
       />
-
     </div>
   );
 }

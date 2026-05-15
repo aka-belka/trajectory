@@ -1,63 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 .header {
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
+  background: rgba(247, 243, 236, 0.7);
+  backdrop-filter: blur(18px);
 }
 
 .header-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 100%;
+  padding: 20px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
 }
 
 .logo a {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   text-decoration: none;
 }
 
 .logo-icon {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .logo-text {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1a1a2e;
-  letter-spacing: -0.5px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -1px;
+  text-transform: lowercase;
 }
 
-.logo-text:hover {
-  color: #4a6cf7;
+.nav,
+.auth-section {
+  display: flex;
+  align-items: center;
 }
 
 .nav {
-  display: flex;
-  gap: 32px;
-  align-items: center;
+  gap: 42px;
+  margin-left: auto;
+}
+
+.auth-section {
+  margin-left: 48px;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #4a5568;
-  font-weight: 500;
-  transition: color 0.2s;
+  color: #111;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.08em;
+  position: relative;
 }
 
-.nav-link:hover {
-  color: #4a6cf7;
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #111;
+  transition: 0.3s ease;
 }
 
-.auth-section {
-  display: flex;
-  align-items: center;
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.login-btn,
+.logout-btn {
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  color: #111;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+  background: #111;
+  color: white;
 }
 
 .user-menu {
@@ -67,43 +114,5 @@
 }
 
 .user-role {
-  font-size: 14px;
-  color: #4a6cf7;
-  background-color: #eef2ff;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: 500;
-}
-
-.logout-btn {
-  background: none;
-  border: 1px solid #e2e8f0;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #4a5568;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.logout-btn:hover {
-  background-color: #f1f5f9;
-  border-color: #cbd5e1;
-}
-
-.login-btn {
-  display: inline-block;
-  background-color: #4a6cf7;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.login-btn:hover {
-  background-color: #3a5bd5;
-  text-decoration: none;
+  display: none;
 }

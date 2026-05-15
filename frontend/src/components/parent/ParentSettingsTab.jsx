@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './ParentSettingsTab.css';
 
-function ParentSettingsTab({ parent, onRefresh, onUpdateName}) {
+function ParentSettingsTab({ parent, onRefresh, onUpdateName }) {
   const [fullName, setFullName] = useState(parent?.getFullName() || '');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -77,48 +77,48 @@ function ParentSettingsTab({ parent, onRefresh, onUpdateName}) {
   if (!parent) return null;
 
   return (
-    <div className="parent-settings-tab">
-      <div className="settings-nav">
+    <div className="parent-settings-tab-ps">
+      <div className="settings-nav-ps">
         <button
-          className={`settings-nav-btn ${activeSection === 'profile' ? 'active' : ''}`}
+          className={`settings-nav-btn-ps ${activeSection === 'profile' ? 'active' : ''}`}
           onClick={() => setActiveSection('profile')}
         >
-          👤 Личные данные
+          Личные данные
         </button>
         <button
-          className={`settings-nav-btn ${activeSection === 'password' ? 'active' : ''}`}
+          className={`settings-nav-btn-ps ${activeSection === 'password' ? 'active' : ''}`}
           onClick={() => setActiveSection('password')}
         >
-          🔒 Смена пароля
+          Смена пароля
         </button>
       </div>
 
       {activeSection === 'profile' && (
-        <form onSubmit={handleUpdateProfile} className="settings-form">
-          <div className="form-group">
-            <label className="form-label">Email</label>
+        <form onSubmit={handleUpdateProfile} className="settings-form-ps">
+          <div className="form-group-ps">
+            <label className="form-label-ps">Email</label>
             <input
               type="email"
               value={parent.getEmail()}
               disabled
-              className="form-input disabled"
+              className="form-input-ps disabled"
             />
-            <p className="form-hint">Email нельзя изменить</p>
+            <p className="form-hint-ps">Email нельзя изменить</p>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Полное имя</label>
+          <div className="form-group-ps">
+            <label className="form-label-ps">Полное имя</label>
             <input
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="form-input"
+              className="form-input-ps"
               placeholder="Ваше имя"
             />
           </div>
 
-          <div className="form-actions">
-            <button type="submit" disabled={loading} className="save-btn">
+          <div className="form-actions-ps">
+            <button type="submit" disabled={loading} className="save-btn-ps">
               {loading ? 'Сохранение...' : 'Сохранить изменения'}
             </button>
           </div>
@@ -126,53 +126,53 @@ function ParentSettingsTab({ parent, onRefresh, onUpdateName}) {
       )}
 
       {activeSection === 'password' && (
-        <form onSubmit={handleChangePassword} className="settings-form">
-          <div className="form-group">
-            <label className="form-label">Текущий пароль</label>
+        <form onSubmit={handleChangePassword} className="settings-form-ps">
+          <div className="form-group-ps">
+            <label className="form-label-ps">Текущий пароль</label>
             <input
               type="password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="form-input"
+              className="form-input-ps"
               placeholder="Введите текущий пароль"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Новый пароль</label>
+          <div className="form-group-ps">
+            <label className="form-label-ps">Новый пароль</label>
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="form-input"
+              className="form-input-ps"
               placeholder="Минимум 6 символов"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Подтверждение нового пароля</label>
+          <div className="form-group-ps">
+            <label className="form-label-ps">Подтверждение нового пароля</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="form-input"
+              className="form-input-ps"
               placeholder="Повторите новый пароль"
               required
             />
           </div>
 
-          <div className="form-actions">
-            <button type="submit" disabled={loading} className="save-btn">
+          <div className="form-actions-ps">
+            <button type="submit" disabled={loading} className="save-btn-ps">
               {loading ? 'Смена пароля...' : 'Изменить пароль'}
             </button>
           </div>
         </form>
       )}
 
-      {message && <div className="success-message">{message}</div>}
-      {error && <div className="error-message">{error}</div>}
+      {message && <div className="success-message-ps">{message}</div>}
+      {error && <div className="error-message-ps">{error}</div>}
     </div>
   );
 }

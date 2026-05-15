@@ -4,6 +4,11 @@ import ConfirmModal from '../common/ConfirmModal';
 import TestResult from "../../models/TestResult";
 import {getTypeColor, getTypeFullName} from '../../constants/professionTypes';
 import './ResultsTab.css';
+import leafImg from '../../assets/images/leaf.png';
+import gearImg from '../../assets/images/gear.png';
+import handshakeImg from '../../assets/images/handshake.png';
+import scheduleImg from '../../assets/images/schedule.png';
+import paletteImg from '../../assets/images/palette.png';
 
 function ResultsTab({ student, refreshTrigger, onContinueTest }) {
   const [testHistory, setTestHistory] = useState([]);
@@ -154,11 +159,11 @@ function ResultsTab({ student, refreshTrigger, onContinueTest }) {
               {renderTypeInfo(result)}
               
               <div className="result-scores">
-                <span className="score">🌿 {result.getNatureScore()}</span>
-                <span className="score">⚙️ {result.getTechniqueScore()}</span>
-                <span className="score">🤝 {result.getHumanScore()}</span>
-                <span className="score">📊 {result.getSignScore()}</span>
-                <span className="score">🎨 {result.getArtScore()}</span>
+                <span className="score" style={{ background: '#60b88582' }}><img src={leafImg} className="icon-rt" alt="лист" /> {result.getNatureScore()}</span>
+                <span className="score" style={{ background: '#6cabd57b' }}><img src={gearImg} className="icon-rt" alt="шестеренка" /> {result.getTechniqueScore()}</span>
+                <span className="score" style={{ background: '#c6756c87' }}><img src={handshakeImg} className="icon-rt" alt="рукопожатие" /> {result.getHumanScore()}</span>
+                <span className="score" style={{ background: '#e6ba727e' }}><img src={scheduleImg} className="icon-rt" alt="график" /> {result.getSignScore()}</span>
+                <span className="score" style={{ background: '#a46bba74' }}><img src={paletteImg} className="icon-rt" alt="палетка" /> {result.getArtScore()}</span>
               </div>
               
               <div className="result-buttons">
@@ -174,16 +179,16 @@ function ResultsTab({ student, refreshTrigger, onContinueTest }) {
                 {result.isCompleted() && (
                   <>
                     <button 
-                      className="details-btn"
+                      className="details-btn-rt"
                       onClick={(e) => handleViewDetails(result, e)}
                     >
-                      📖 Подробнее
+                      Подробнее
                     </button>
                     <button 
                       className="delete-result-btn"
                       onClick={(e) => openConfirmModal(result, e)}
                     >
-                      🗑️ Удалить
+                      Удалить
                     </button>
                   </>
                 )}

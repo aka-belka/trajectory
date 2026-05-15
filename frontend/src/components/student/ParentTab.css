@@ -1,89 +1,111 @@
-.parent-tab {
-  padding: 20px 0;
-  max-width: 600px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-.parent-status {
-  margin-bottom: 32px;
+.parent-tab {
+  padding: 0;
+  max-width: 700px;
 }
 
 .parent-status h2 {
-  font-size: 20px;
-  color: #1a1a2e;
-  margin-bottom: 20px;
-}
-
-.status-connected,
-.status-disconnected {
-  display: flex;
-  gap: 20px;
-  background-color: white;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.status-icon {
-  font-size: 48px;
-}
-
-.status-text {
-  flex: 1;
-}
-
-.status-title {
-  font-size: 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 8px;
+  color: #1a1a2e;
+  margin-bottom: 24px;
 }
 
-.status-connected .status-title {
-  color: #27ae60;
+.parents-list {
+  margin-bottom: 32px;
 }
 
-.status-disconnected .status-title {
-  color: #e74c3c;
+.parents-list h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 16px;
 }
 
-.status-description {
-  color: #666;
-  font-size: 14px;
-  line-height: 1.5;
+.parent-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.2s;
+}
+
+.parent-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.parent-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.parent-icon {
+  display: flex;
+  align-items: end;
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.parent-name-pt {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2e211a;
+  margin-bottom: 4px;
+}
+
+.parent-linked {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #aaa;
 }
 
 .unlink-btn {
-  margin-top: 16px;
-  background-color: #fee;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 14px;
+  background: none;
+  border: 1px solid #ca0505d5;
+  color: #ca0505d5;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
   font-weight: 500;
-  color: #e74c3c;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .unlink-btn:hover:not(:disabled) {
-  background-color: #fdd;
+  background: #ca0505d5;
+  color: white;
 }
 
 .unlink-btn:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .invitation-form {
-  background-color: white;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: white;
+  border-radius: 24px;
+  padding: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .invitation-form h3 {
-  font-size: 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: #1a1a2e;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .invitation-form form {
@@ -94,32 +116,39 @@
 
 .invite-input {
   flex: 1;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
+  padding: 14px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  border: 1px solid #e8e8e5;
+  border-radius: 40px;
+  background: #faf8f4;
+  transition: all 0.2s;
   min-width: 250px;
 }
 
 .invite-input:focus {
   outline: none;
-  border-color: #4a6cf7;
+  border-color: #1a1a2e;
+  background: white;
 }
 
 .invite-btn {
-  background-color: #4a6cf7;
+  background: #1a1a2e;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-size: 14px;
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
   font-weight: 500;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .invite-btn:hover:not(:disabled) {
-  background-color: #3a5bd5;
+  background: #2a2a3e;
+  transform: translateY(-2px);
 }
 
 .invite-btn:disabled {
@@ -128,82 +157,41 @@
 }
 
 .invite-hint {
-  font-size: 13px;
-  color: #999;
-  margin-top: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 16px;
 }
 
-.success-message {
-  margin-top: 20px;
-  padding: 12px 16px;
-  background-color: #d5f5e3;
+.success-message-pt {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.03);
   color: #27ae60;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
   text-align: center;
 }
 
-.error-message {
-  margin-top: 20px;
-  padding: 12px 16px;
-  background-color: #fee;
+.error-message-pt {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: rgba(181, 54, 54, 0.081);
   color: #e74c3c;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 40px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
   text-align: center;
 }
 
-.parents-list {
-  margin-bottom: 24px;
+.invite-input:-webkit-autofill,
+.invite-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #1a1a2e !important;
 }
 
-.parents-list h3 {
-  font-size: 16px;
-  color: #1a1a2e;
-  margin-bottom: 12px;
-}
-
-.parent-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #eef2ff;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-}
-
-.parent-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.parent-icon {
-  font-size: 28px;
-}
-
-.parent-name {
-  font-weight: 500;
-  color: #1a1a2e;
-  margin-bottom: 4px;
-}
-
-.parent-linked {
-  font-size: 12px;
-  color: #666;
-}
-
-.unlink-btn {
-  background-color: #fee;
-  color: #e74c3c;
-  border: 1px solid #fcc;
-  padding: 6px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.unlink-btn:hover:not(:disabled) {
-  background-color: #fdd;
+.parent-pt{
+  width: 35px;
+  height: 35px;
 }

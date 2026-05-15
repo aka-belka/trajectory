@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import ParentChild from '../../models/ParentChild';
 import ConfirmModal from '../common/ConfirmModal';
 import './ParentTab.css';
+import parentImg from '../../assets/images/parent.png';
 
 function ParentTab({ student, onRefresh }) {
   const [parentEmail, setParentEmail] = useState('');
@@ -104,9 +105,9 @@ function ParentTab({ student, onRefresh }) {
             {parents.map(parent => (
               <div key={parent.getId()} className="parent-card">
                 <div className="parent-info">
-                  <span className="parent-icon">👪</span>
+                  <span className="parent-icon"><img src={parentImg} className="parent-pt" alt="родитель" /></span>
                   <div>
-                    <p className="parent-name">{parent.getName()}</p>
+                    <p className="parent-name-pt">{parent.getName()}</p>
                     <p className="parent-linked">Дата привязки: {new Date(parent.getLinkedAt()).toLocaleDateString()}</p>
                   </div>
                 </div>
@@ -143,8 +144,8 @@ function ParentTab({ student, onRefresh }) {
         </p>
       </div>
 
-      {message && <div className="success-message">{message}</div>}
-      {error && <div className="error-message">{error}</div>}
+      {message && <div className="success-message-pt">{message}</div>}
+      {error && <div className="error-message-pt">{error}</div>}
 
       <ConfirmModal
         isOpen={confirmModal.isOpen}

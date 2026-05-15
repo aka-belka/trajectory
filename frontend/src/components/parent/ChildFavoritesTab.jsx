@@ -81,52 +81,56 @@ function ChildFavoritesTab({ studentId, parentId }) {
   };
 
   if (loading) {
-    return <div className="child-favorites-loading">Загрузка избранного...</div>;
+    return <div className="child-favorites-loading-cft">Загрузка избранного...</div>;
   }
 
   if (favorites.length === 0) {
     return (
-      <div className="child-favorites-empty">
-        <p>⭐ У ребёнка пока нет избранных профессий</p>
+      <div className="child-favorites-empty-cft">
+        <p>У ребёнка пока нет избранных профессий</p>
       </div>
     );
   }
 
   return (
-    <div className="child-favorites-tab">
-      <div className="child-favorites-header">
+    <div className="child-favorites-tab-cft">
+      <div className="child-favorites-header-cft">
         <h3>Избранные профессии</h3>
-        <p className="child-favorites-count">Всего: {favorites.length}</p>
+        <p className="child-favorites-count-cft">Всего: {favorites.length}</p>
       </div>
 
-      <div className="child-favorites-list">
+      <div className="child-favorites-list-cft">
         {favorites.map(profession => (
-          <div key={profession.getId()} className="child-favorite-card">
-            <div className="child-favorite-info">
-              <div className="child-favorite-header">
-                <div className="child-favorite-title-section">
-                  <h4 className="child-favorite-title"> {profession.getTitle()} </h4>
+          <div key={profession.getId()} className="child-favorite-card-cft">
+            <div className="child-favorite-info-cft">
+              <div className="child-favorite-header-cft">
+                <div className="child-favorite-title-section-cft">
+                  <h4 
+                    className="child-favorite-title-cft" 
+                  >
+                    {profession.getTitle()}
+                  </h4>
                   <span 
-                    className="child-favorite-type"
+                    className="child-favorite-type-cft"
                     style={{ backgroundColor: profession.getTypeColor() }}
                   >
                     {profession.getTypeShortName()}
                   </span>
                 </div>
                 <button 
-                  className="child-favorite-details-btn"
+                  className="child-favorite-details-btn-cft"
                   onClick={() => handleOpenProfession(profession)}
                 >
                   Подробнее
                 </button>
               </div>
-              <p className="child-favorite-description">
+              <p className="child-favorite-description-cft">
                 {profession.getDescription()?.substring(0, 120)}...
               </p>
             </div>
 
-            <div className="child-favorite-comment">
-              <label className="comment-label">💬 Комментарий родителя:</label>
+            <div className="child-favorite-comment-cft">
+              <label className="comment-label-cft">Комментарий родителя:</label>
               <textarea
                 value={editingComment[profession.getId()] || ''}
                 onChange={(e) => setEditingComment(prev => ({
@@ -134,13 +138,13 @@ function ChildFavoritesTab({ studentId, parentId }) {
                   [profession.getId()]: e.target.value
                 }))}
                 placeholder="Напишите комментарий о профессии..."
-                className="comment-textarea"
+                className="comment-textarea-cft"
                 rows={3}
               />
               <button
                 onClick={() => handleSaveComment(profession.getId(), editingComment[profession.getId()])}
                 disabled={saving[profession.getId()]}
-                className="save-comment-btn"
+                className="save-comment-btn-cft"
               >
                 {saving[profession.getId()] ? 'Сохранение...' : 'Сохранить комментарий'}
               </button>

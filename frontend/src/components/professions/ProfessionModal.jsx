@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import FavoriteProfession from '../../models/FavoriteProfession';
 import './ProfessionModal.css';
+import notesImg from '../../assets/images/notes.png';
+import booksImg from '../../assets/images/books.png';
+import moneyImg from '../../assets/images/money.png';
+import hatImg from '../../assets/images/hat.png';
 
 function ProfessionModal({ 
   profession, 
@@ -87,18 +91,20 @@ function ProfessionModal({
           <div className="profession-type-badge" style={{ backgroundColor: profession.getTypeColor() }}>
             {profession.getProfessionType()}
           </div>
-          <h1 className="profession-title">{profession.getTitle()}</h1>
-          <p className="profession-type-name">{profession.getTypeFullName()}</p>
+          <div className="profession-modal-info">
+            <h1 className="profession-title-pmo">{profession.getTitle()}</h1>
+            <p className="profession-type-name">{profession.getTypeFullName()}</p>
+          </div>
         </div>
 
         <div className="profession-modal-body">
-          <section className="profession-section">
-            <h2 className="section-icon">📖 Описание</h2>
+          <section className="profession-section-pm">
+            <h2 className="section-icon"><img src={notesImg} className="icons-pm" alt="заметка" />Описание</h2>
             <p className="profession-description">{profession.getDescription()}</p>
           </section>
 
-          <section className="profession-section">
-            <h2 className="section-icon">📚 Предметы ЕГЭ</h2>
+          <section className="profession-section-pm">
+            <h2 className="section-icon"><img src={booksImg} className="icons-pm" alt="книга" />Предметы ЕГЭ</h2>
             <div className="exam-tags">
               {examSubjectsArray.map((subject, index) => (
                 <span key={index} className="exam-tag">{subject}</span>
@@ -106,25 +112,25 @@ function ProfessionModal({
             </div>
           </section>
 
-          <section className="profession-section">
-            <h2 className="section-icon">💰 Зарплата</h2>
+          <section className="profession-section-pm">
+            <h2 className="section-icon"><img src={moneyImg} className="icons-pm" alt="деньги" />Зарплата</h2>
             <div className="salary-box">
               <span className="salary-value">{profession.getSalary()}</span>
               <span className="salary-period">в месяц</span>
             </div>
           </section>
 
-          <section className="profession-section">
-            <h2 className="section-icon">🎓 Где учиться</h2>
+          <section className="profession-section-pm">
+            <h2 className="section-icon"><img src={hatImg} className="icons-pm" alt="шапка" />Где учиться</h2>
             <ul className="education-list">
               {educationPlacesArray.map((place, index) => (
-                <li key={index}>{place}</li>
+                <li key={index}><img src={hatImg} className="icons-small-pm" alt="шапка" />{place}</li>
               ))}
             </ul>
           </section>
 
           {isStudent && (
-            <section className="profession-section favorite-section">
+            <section className="profession-section-pm favorite-section">
               {isFavorite ? (
                 <button className="remove-favorite-btn" onClick={handleRemoveFromFavorites}>
                   ★ Удалить из избранного
@@ -138,8 +144,8 @@ function ProfessionModal({
           )}
 
           {recommendations.length > 0 && (
-            <section className="profession-section">
-              <h2 className="section-icon">🔍 Похожие профессии</h2>
+            <section className="profession-section-pm">
+              <h2 className="section-icon">Похожие профессии</h2>
               <div className="recommendations-list">
                 {recommendations.slice(0, maxRecommendations).map(rec => (
                   <div key={rec.getId()} className="recommendation-card">
@@ -156,10 +162,6 @@ function ProfessionModal({
               </div>
             </section>
           )}
-        </div>
-
-        <div className="profession-modal-footer">
-          <button className="close-btn" onClick={onClose}>Закрыть</button>
         </div>
       </div>
     </div>

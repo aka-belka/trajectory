@@ -23,6 +23,12 @@ function AuthPage() {
     window.scrollTo({ top: 0, behavior: 'smooth'});
   };
 
+  const handleTabSwitch = (isLoginMode) => {
+    setIsLogin(isLoginMode);
+    setError('');
+    scrollToTop();
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -125,13 +131,13 @@ function AuthPage() {
         <div className="auth-tabs">
           <button
             className={`tab-btn ${isLogin ? 'active' : ''}`}
-            onClick={() => setIsLogin(true)}
+            onClick={() => handleTabSwitch(true)}
           >
             Вход
           </button>
           <button
             className={`tab-btn ${!isLogin ? 'active' : ''}`}
-            onClick={() => setIsLogin(false)}
+            onClick={() => handleTabSwitch(false)}
           >
             Регистрация
           </button>
@@ -207,14 +213,14 @@ function AuthPage() {
                   className={`role-btn ${role === 'student' ? 'active' : ''}`}
                   onClick={() => handleRoleChange('student')}
                 >
-                  🎓 Ученик
+                  Ученик
                 </button>
                 <button
                   type="button"
                   className={`role-btn ${role === 'parent' ? 'active' : ''}`}
                   onClick={() => handleRoleChange('parent')}
                 >
-                  👪 Родитель
+                  Родитель
                 </button>
               </div>
             </div>
@@ -248,7 +254,7 @@ function AuthPage() {
             {isLogin ? 'Ещё нет аккаунта? ' : 'Уже есть аккаунт? '}
             <button
               className="switch-link"
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => handleTabSwitch(!isLogin)}
               disabled={loading}
             >
               {isLogin ? 'Зарегистрироваться' : 'Войти'}

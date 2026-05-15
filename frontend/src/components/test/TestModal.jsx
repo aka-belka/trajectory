@@ -84,59 +84,59 @@ function TestModal({ isOpen, onClose, studentId }) {
   const progress = totalQuestions > 0 ? ((currentIndex + 1) / totalQuestions) * 100 : 0;
 
   return (
-    <div className="test-modal-overlay" onClick={handleClose}>
-      <div className="test-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="test-modal-close" onClick={handleClose} disabled={loading}>×</button>
+    <div className="test-modal-overlay-tm" onClick={handleClose}>
+      <div className="test-modal-content-tm" onClick={(e) => e.stopPropagation()}>
+        <button className="test-modal-close-tm" onClick={handleClose} disabled={loading}>×</button>
 
-        <div className="test-modal-header">
+        <div className="test-modal-header-tm">
           <h2>Профориентационный тест</h2>
-          <p className="test-subtitle">Методика Е.А. Климова</p>
-          {isResuming && <p className="resume-badge">▶ Продолжение теста</p>}
+          <p className="test-subtitle-tm">Методика Е.А. Климова</p>
+          {isResuming && <p className="resume-badge-tm">▶ Продолжение теста</p>}
         </div>
 
-        <div className="test-progress">
-          <div className="progress-info">
-            <span className="progress-label">Вопрос {currentIndex + 1} из {totalQuestions}</span>
-            <span className="progress-percent">{Math.round(progress)}%</span>
+        <div className="test-progress-tm">
+          <div className="progress-info-tm">
+            <span className="progress-label-tm">Вопрос {currentIndex + 1} из {totalQuestions}</span>
+            <span className="progress-percent-tm">{Math.round(progress)}%</span>
           </div>
-          <div className="progress-bar">
-            <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+          <div className="progress-bar-tm">
+            <div className="progress-fill-tm" style={{ width: `${progress}%` }}></div>
           </div>
         </div>
 
         {loading && !currentQuestion ? (
-          <div className="test-loading">
-            <div className="spinner"></div>
+          <div className="test-loading-tm">
+            <div className="spinner-tm"></div>
             <p>{isResuming ? 'Загрузка сохранённого теста...' : 'Загрузка вопросов...'}</p>
           </div>
         ) : currentQuestion && (
           <>
-            <div className="test-question">
-              <p className="question-text">{currentQuestion.getQuestion()}</p>
+            <div className="test-question-tm">
+              <p className="question-text-tm">{currentQuestion.getQuestion()}</p>
             </div>
 
-            <div className="test-options">
+            <div className="test-options-tm">
               <button 
-                className="option-btn option-a"
+                className="option-btn-tm option-a-tm"
                 onClick={() => handleAnswer('A')}
                 disabled={loading}
               >
-                <span className="option-letter">А</span>
-                <span className="option-text">{currentQuestion.getOptionA()}</span>
+                <span className="option-letter-tm">А</span>
+                <span className="option-text-tm">{currentQuestion.getOptionA()}</span>
               </button>
               <button 
-                className="option-btn option-b"
+                className="option-btn-tm option-b-tm"
                 onClick={() => handleAnswer('B')}
                 disabled={loading}
               >
-                <span className="option-letter">Б</span>
-                <span className="option-text">{currentQuestion.getOptionB()}</span>
+                <span className="option-letter-tm">Б</span>
+                <span className="option-text-tm">{currentQuestion.getOptionB()}</span>
               </button>
             </div>
 
             {currentIndex > 0 && (
               <button 
-                className="back-btn"
+                className="back-btn-tm"
                 onClick={handleBack}
                 disabled={loading}
               >
@@ -147,8 +147,8 @@ function TestModal({ isOpen, onClose, studentId }) {
         )}
 
         {loading && (
-          <div className="test-saving">
-            <div className="spinner-small"></div>
+          <div className="test-saving-tm">
+            <div className="spinner-small-tm"></div>
             <p>Сохранение ответа...</p>
           </div>
         )}
