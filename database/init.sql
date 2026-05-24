@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS test_results (
   human_score INT DEFAULT 0,
   sign_score INT DEFAULT 0,
   art_score INT DEFAULT 0,
-  dominant_type VARCHAR(1) CHECK (dominant_type IN ('П', 'Т', 'Ч', 'З', 'Х'))
+  dominant_type VARCHAR(1) CHECK (dominant_type IN ('П', 'Т', 'Ч', 'З', 'Х')),
   dominant_types TEXT 
 );
 
